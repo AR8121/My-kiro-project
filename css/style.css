@@ -80,15 +80,34 @@ img { max-width: 100%; display: block; }
 .navbar.scrolled { background: rgba(255,255,255,0.97); box-shadow: var(--shadow-sm); }
 .nav-container { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; height: 70px; gap: 32px; }
 .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+
+/* ---- IMAGE LOGO ---- */
+.logo-img {
+  height: 48px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  /* Keep logo crisp and dark on light navbar */
+  filter: brightness(0) saturate(100%);
+  transition: var(--transition);
+}
+.nav-logo:hover .logo-img { opacity: 0.8; }
+
+/* Footer logo — invert to white on dark navy background */
+.footer .logo-img {
+  filter: brightness(0) invert(1);
+}
+
+/* Fallback icon logo (shown if no image) */
 .logo-icon {
-  width: 42px;
-  height: 42px;
+  width: 48px;
+  height: 48px;
   background: linear-gradient(135deg, var(--accent-light), var(--accent-dark));
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   color: #fff;
   flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(224,123,0,0.3);
