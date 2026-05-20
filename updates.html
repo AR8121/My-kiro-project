@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Updates – Audio Intelligence</title>
+  <meta name="description" content="Latest updates, patches, and new features for all Audio Intelligence plugins and hardware firmware."/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-icon"><i class="fas fa-wave-square"></i></span>
+      <span class="logo-text">Audio<strong>Intelligence</strong></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="updates.html" class="active">Updates</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="support.html">Support</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-cart" id="cartBtn"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cartCount">0</span></button>
+      <a href="products.html" class="btn-primary">Shop Now</a>
+      <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</nav>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header"><h3>Your Cart</h3><button class="cart-close" id="cartClose"><i class="fas fa-times"></i></button></div>
+  <div class="cart-items" id="cartItems"><div class="cart-empty"><i class="fas fa-music"></i><p>Your cart is empty</p></div></div>
+  <div class="cart-footer" id="cartFooter" style="display:none"><div class="cart-total">Total: <strong id="cartTotal">$0.00</strong></div><button class="btn-primary full-width">Checkout</button></div>
+</div>
+
+<div class="page-header">
+  <div class="container">
+    <span class="section-tag">Changelog</span>
+    <h1>Product Updates</h1>
+    <p>All updates are free for existing customers. Download the latest versions from your account.</p>
+  </div>
+</div>
+
+<!-- UPDATE NOTICE BANNER -->
+<div style="background:rgba(245,166,35,0.08); border-bottom:1px solid rgba(245,166,35,0.2); padding:16px 0;">
+  <div class="container" style="display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; text-align:center;">
+    <i class="fas fa-bell" style="color:var(--gold);"></i>
+    <span style="font-size:0.9rem; color:var(--text-secondary);">Want to be notified of updates?</span>
+    <a href="#newsletter" class="btn-primary" style="padding:8px 18px; font-size:0.85rem;">Subscribe to Updates</a>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+
+    <!-- Filter Bar -->
+    <div class="filter-bar" style="justify-content:flex-start; padding:0 0 32px;">
+      <button class="filter-btn active" data-update-filter="all">All Products</button>
+      <button class="filter-btn" data-update-filter="AI Compressor X">Compressor X</button>
+      <button class="filter-btn" data-update-filter="Transformer EQ Pro">Transformer EQ</button>
+      <button class="filter-btn" data-update-filter="Space Reverb AI">Space Reverb</button>
+      <button class="filter-btn" data-update-filter="AI Channel Strip">Channel Strip</button>
+    </div>
+
+    <div class="updates-list" id="updatesList">
+
+      <!-- v2.3.0 -->
+      <div class="update-card fade-up" data-product="AI Compressor X">
+        <div><div class="update-version-badge">v2.3.0</div></div>
+        <div class="update-body">
+          <h3>AI Compressor X <span class="update-type new-feature">New Feature</span></h3>
+          <div class="update-meta">
+            <span><i class="fas fa-calendar"></i> May 15, 2025</span>
+            <span><i class="fas fa-tag"></i> AI Compressor X</span>
+          </div>
+          <ul class="update-notes">
+            <li>Added new "Vintage" mode with analog-modeled knee behavior</li>
+            <li>New Mid/Side processing mode for stereo bus compression</li>
+            <li>Added spectrum analyzer display on the gain reduction meter</li>
+            <li>Improved CPU performance by 22% on Apple Silicon</li>
+            <li>Fixed rare click/pop artifact on parameter automation</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- v1.5.1 -->
+      <div class="update-card fade-up" data-product="Transformer EQ Pro">
+        <div><div class="update-version-badge">v1.5.1</div></div>
+        <div class="update-body">
+          <h3>Transformer EQ Pro <span class="update-type improvement">Improvement</span></h3>
+          <div class="update-meta">
+            <span><i class="fas fa-calendar"></i> May 10, 2025</span>
+            <span><i class="fas fa-tag"></i> Transformer EQ Pro</span>
+          </div>
+          <ul class="update-notes">
+            <li>Improved transformer saturation algorithm for more authentic warmth</li>
+            <li>Added 4 new EQ curve shapes: Shelf, Bell, Tilt, and High-Shelf Resonant</li>
+            <li>Fixed compatibility issue with Pro Tools 2024.9 on Windows</li>
+            <li>Preset browser now supports subfolders and favorites</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- v3.0.0 -->
+      <div class="update-card fade-up" data-product="Space Reverb AI">
+        <div><div class="update-version-badge">v3.0.0</div></div>
+        <div class="update-body">
+          <h3>Space Reverb AI <span class="update-type new-feature">Major Update</span></h3>
+          <div class="update-meta">
+            <span><i class="fas fa-calendar"></i> April 28, 2025</span>
+            <span><i class="fas fa-tag"></i> Space Reverb AI</span>
+          </div>
+          <ul class="update-notes">
+            <li>Complete neural engine rewrite — 3x more realistic room modeling</li>
+            <li>50 new factory presets designed by professional mixing engineers</li>
+            <li>Added Freeze mode for infinite reverb tails</li>
+            <li>New modulation section with chorus, shimmer, and pitch-shift effects</li>
+            <li>Reduced latency from 512 to 128 samples in all modes</li>
+            <li>Full resizable UI with HiDPI support</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- v1.2.0 -->
+      <div class="update-card fade-up" data-product="AI Channel Strip">
+        <div><div class="update-version-badge">v1.2.0</div></div>
+        <div class="update-body">
+          <h3>AI Channel Strip Bundle <span class="update-type improvement">Improvement</span></h3>
+          <div class="update-meta">
+            <span><i class="fas fa-calendar"></i> April 12, 2025</span>
+            <span><i class="fas fa-tag"></i> AI Channel Strip</span>
+          </div>
+          <ul class="update-notes">
+            <li>Unified preset management across all 3 bundle plugins</li>
+            <li>New "Link" mode to chain EQ → Comp → Sat with shared bypass</li>
+            <li>Added A/B comparison feature in all plugins</li>
+            <li>macOS 15 Sequoia compatibility confirmed</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- v2.2.3 -->
+      <div class="update-card fade-up" data-product="AI Compressor X">
+        <div><div class="update-version-badge">v2.2.3</div></div>
+        <div class="update-body">
+          <h3>AI Compressor X <span class="update-type bugfix">Bug Fix</span></h3>
+          <div class="update-meta">
+            <span><i class="fas fa-calendar"></i> March 22, 2025</span>
+            <span><i class="fas fa-tag"></i> AI Compressor X</span>
+          </div>
+          <ul class="update-notes">
+            <li>Fixed crash on Ableton Live 12.1 with multi-band mode enabled</li>
+            <li>Corrected meter ballistics inaccuracy at 96kHz sample rate</li>
+            <li>Fixed incorrect preset recall when using DAW automation</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- v1.4.0 -->
+      <div class="update-card fade-up" data-product="Transformer EQ Pro">
+        <div><div class="update-version-badge">v1.4.0</div></div>
+        <div class="update-body">
+          <h3>Transformer EQ Pro <span class="update-type new-feature">New Feature</span></h3>
+          <div class="update-meta">
+            <span><i class="fas fa-calendar"></i> February 14, 2025</span>
+            <span><i class="fas fa-tag"></i> Transformer EQ Pro</span>
+          </div>
+          <ul class="update-notes">
+            <li>Added Mid/Side EQ mode with independent M and S channel control</li>
+            <li>New analog noise floor simulation for authentic vintage sound</li>
+            <li>Expanded frequency range to 10Hz–40kHz</li>
+            <li>Improved GUI rendering performance on Windows 11</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER ANCHOR -->
+<section class="section newsletter-section" id="newsletter">
+  <div class="container">
+    <div class="newsletter-box">
+      <div class="newsletter-content">
+        <h2>Get Update Notifications</h2>
+        <p>We'll email you when new versions of your plugins are available — completely free.</p>
+      </div>
+      <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+        <input type="email" placeholder="Your email address" required/>
+        <button type="submit" class="btn-primary">Notify Me</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo"><span class="logo-icon"><i class="fas fa-wave-square"></i></span><span class="logo-text">Audio<strong>Intelligence</strong></span></a>
+        <p>Professional audio plugins and analog hardware for the modern studio.</p>
+        <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-facebook"></i></a></div>
+      </div>
+      <div class="footer-col"><h4>Products</h4><ul><li><a href="products.html?cat=plugins">VST Plugins</a></li><li><a href="products.html?cat=hardware">Analog Hardware</a></li><li><a href="products.html?cat=bundles">Bundles</a></li><li><a href="products.html?cat=free">Free Downloads</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="updates.html">Updates</a></li><li><a href="support.html">Support</a></li></ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">EULA</a></li><li><a href="#">Refund Policy</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 Audio Intelligence. All rights reserved.</p></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  // Update page filter
+  document.querySelectorAll('[data-update-filter]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-update-filter]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.updateFilter;
+      document.querySelectorAll('.update-card').forEach(card => {
+        card.style.display = (filter === 'all' || card.dataset.product === filter) ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>
