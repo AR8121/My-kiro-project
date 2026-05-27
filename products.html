@@ -4,24 +4,19 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Products — Audio Intelligence</title>
-  <meta name="description" content="Browse all Audio Intelligence plugins and analog hardware. VST3, AU, AAX formats supported."/>
+  <meta name="description" content="Browse all Audio Intelligence plugins and analog hardware. VST3, AU, AAX."/>
   <link rel="stylesheet" href="css/style.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
-
-<!-- NAVBAR -->
 <nav class="navbar" id="navbar">
   <div class="nav-wrap">
     <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Audio Intelligence" class="logo-img"/></a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="products.html" class="active">Products</a></li>
-      <li><a href="updates.html">Updates</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="support.html">Support</a></li>
+      <li><a href="index.html">Home</a></li><li><a href="products.html" class="active">Products</a></li>
+      <li><a href="updates.html">Updates</a></li><li><a href="about.html">About</a></li><li><a href="support.html">Support</a></li>
     </ul>
     <div class="nav-actions">
       <button class="cart-btn" id="cartBtn"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cartBadge">0</span></button>
@@ -30,25 +25,28 @@
     </div>
   </div>
 </nav>
-
-<!-- CART -->
 <div class="overlay" id="overlay"></div>
 <div class="drawer" id="drawer">
-  <div class="drawer-head"><h3>Your Cart</h3><button class="drawer-close" id="drawerClose"><i class="fas fa-times"></i></button></div>
+  <div class="drawer-head"><h3><i class="fas fa-shopping-bag" style="color:var(--accent);margin-right:8px;"></i>Your Cart</h3><button class="drawer-close" id="drawerClose"><i class="fas fa-times"></i></button></div>
   <div class="drawer-items" id="cartItems"><div class="cart-empty"><i class="fas fa-music"></i><p>Your cart is empty</p></div></div>
-  <div class="drawer-foot" id="cartFoot" style="display:none"><div class="cart-total">Total: <strong id="cartTotal">$0.00</strong></div><button class="btn btn-primary fw">Proceed to Checkout</button></div>
-</div>
-
-<!-- PAGE HEADER -->
-<div class="page-header">
-  <div class="container">
-    <span class="tag">Shop</span>
-    <h1>All Products</h1>
-    <p>Professional plugins and analog hardware for the modern studio</p>
+  <div class="drawer-foot" id="cartFoot" style="display:none">
+    <div class="cart-subtotal"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
+    <div class="cart-total-row"><span>Total</span><strong id="cartTotal">$0.00</strong></div>
+    <div class="pay-methods-mini" id="payLogoStrip" style="display:none">
+      <span style="font-size:.7rem;color:var(--text-3);font-weight:600;">Pay with:</span>
+      <span style="background:#1a1f71;color:#fff;padding:2px 7px;border-radius:3px;font-size:.66rem;font-weight:800;">VISA</span>
+      <span style="background:#eb001b;color:#fff;padding:2px 7px;border-radius:3px;font-size:.66rem;font-weight:800;">MC</span>
+      <span style="background:#003087;color:#fff;padding:2px 7px;border-radius:3px;font-size:.66rem;font-weight:800;">PayPal</span>
+      <span style="background:#000;color:#fff;padding:2px 7px;border-radius:3px;font-size:.66rem;font-weight:800;">Apple Pay</span>
+    </div>
+    <a href="checkout.html" class="btn btn-primary fw" style="margin-top:4px;"><i class="fas fa-lock"></i> Secure Checkout</a>
+    <p style="font-size:.72rem;color:var(--text-3);text-align:center;margin-top:8px;"><i class="fas fa-shield-alt" style="color:var(--green);"></i> 256-bit SSL · 30-day refund guaranteed</p>
   </div>
 </div>
 
-<!-- FILTERS -->
+<div class="page-header">
+  <div class="container"><span class="tag">Shop</span><h1>All Products</h1><p>Professional plugins and analog hardware for the modern studio</p></div>
+</div>
 <div class="filter-bar">
   <button class="fbtn on" data-f="all">All Products</button>
   <button class="fbtn" data-f="plugins"><i class="fas fa-plug"></i> VST Plugins</button>
@@ -56,17 +54,12 @@
   <button class="fbtn" data-f="bundles"><i class="fas fa-layer-group"></i> Bundles</button>
   <button class="fbtn" data-f="free"><i class="fas fa-gift"></i> Free</button>
 </div>
-
-<!-- PRODUCTS -->
 <section class="section">
   <div class="container">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;flex-wrap:wrap;gap:12px;">
-      <p style="color:var(--text-3);font-size:.88rem;">Showing <strong style="color:var(--text)">8</strong> products</p>
-      <select onchange="" style="background:var(--bg-white);border:1.5px solid var(--border-md);color:var(--text);padding:8px 14px;border-radius:8px;font-size:.86rem;outline:none;cursor:pointer;font-family:var(--font);">
-        <option>Featured</option>
-        <option>Price: Low to High</option>
-        <option>Price: High to Low</option>
-        <option>Name A–Z</option>
+      <p style="color:var(--text-3);font-size:.88rem;">Showing <strong style="color:var(--text);">8</strong> products</p>
+      <select style="background:var(--bg-white);border:1.5px solid var(--border-md);color:var(--text);padding:8px 14px;border-radius:8px;font-size:.86rem;outline:none;cursor:pointer;font-family:var(--font);">
+        <option>Featured</option><option>Price: Low to High</option><option>Price: High to Low</option><option>Name A–Z</option>
       </select>
     </div>
     <div class="grid-4" id="allGrid"></div>
@@ -79,31 +72,25 @@
     <div style="text-align:center;max-width:680px;margin:0 auto;">
       <span class="tag">Compatibility</span>
       <h2 style="font-family:var(--fdsp);font-size:2rem;font-weight:700;margin:14px 0 11px;color:var(--navy);">Works With Every Major DAW</h2>
-      <p style="color:var(--text-2);margin-bottom:38px;">All plugins come in VST3, AU, and AAX formats — compatible with every professional DAW.</p>
-      <div style="display:flex;justify-content:center;gap:18px;flex-wrap:wrap;">
-        <div style="padding:18px 22px;background:var(--bg-white);border:1px solid var(--border);border-radius:var(--r);min-width:105px;box-shadow:var(--s1);transition:var(--t);" onmouseover="this.style.borderColor='var(--accent-border)'" onmouseout="this.style.borderColor='var(--border)'"><div style="font-size:1.7rem;color:var(--accent);margin-bottom:7px;"><i class="fas fa-music"></i></div><div style="font-size:.82rem;font-weight:700;color:var(--navy);">Ableton Live</div></div>
-        <div style="padding:18px 22px;background:var(--bg-white);border:1px solid var(--border);border-radius:var(--r);min-width:105px;box-shadow:var(--s1);transition:var(--t);" onmouseover="this.style.borderColor='var(--accent-border)'" onmouseout="this.style.borderColor='var(--border)'"><div style="font-size:1.7rem;color:var(--accent);margin-bottom:7px;"><i class="fab fa-apple"></i></div><div style="font-size:.82rem;font-weight:700;color:var(--navy);">Logic Pro</div></div>
-        <div style="padding:18px 22px;background:var(--bg-white);border:1px solid var(--border);border-radius:var(--r);min-width:105px;box-shadow:var(--s1);transition:var(--t);" onmouseover="this.style.borderColor='var(--accent-border)'" onmouseout="this.style.borderColor='var(--border)'"><div style="font-size:1.7rem;color:var(--accent);margin-bottom:7px;"><i class="fas fa-wave-square"></i></div><div style="font-size:.82rem;font-weight:700;color:var(--navy);">Pro Tools</div></div>
-        <div style="padding:18px 22px;background:var(--bg-white);border:1px solid var(--border);border-radius:var(--r);min-width:105px;box-shadow:var(--s1);transition:var(--t);" onmouseover="this.style.borderColor='var(--accent-border)'" onmouseout="this.style.borderColor='var(--border)'"><div style="font-size:1.7rem;color:var(--accent);margin-bottom:7px;"><i class="fas fa-headphones"></i></div><div style="font-size:.82rem;font-weight:700;color:var(--navy);">FL Studio</div></div>
-        <div style="padding:18px 22px;background:var(--bg-white);border:1px solid var(--border);border-radius:var(--r);min-width:105px;box-shadow:var(--s1);transition:var(--t);" onmouseover="this.style.borderColor='var(--accent-border)'" onmouseout="this.style.borderColor='var(--border)'"><div style="font-size:1.7rem;color:var(--accent);margin-bottom:7px;"><i class="fas fa-compact-disc"></i></div><div style="font-size:.82rem;font-weight:700;color:var(--navy);">Cubase</div></div>
-        <div style="padding:18px 22px;background:var(--bg-white);border:1px solid var(--border);border-radius:var(--r);min-width:105px;box-shadow:var(--s1);transition:var(--t);" onmouseover="this.style.borderColor='var(--accent-border)'" onmouseout="this.style.borderColor='var(--border)'"><div style="font-size:1.7rem;color:var(--accent);margin-bottom:7px;"><i class="fas fa-sliders-h"></i></div><div style="font-size:.82rem;font-weight:700;color:var(--navy);">Studio One</div></div>
+      <p style="color:var(--text-2);margin-bottom:38px;">VST3, AU, and AAX formats — compatible with every professional DAW.</p>
+      <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+        <div style="padding:16px 20px;background:var(--bg-white);border:1px solid var(--border);border-radius:var(--r);min-width:100px;box-shadow:var(--s1);"><div style="font-size:1.6rem;color:var(--accent);margin-bottom:7px;"><i class="fas fa-music"></i></div><div style="font-size:.8rem;font-weight:700;color:var(--navy);">Ableton Live</div></div>
+        <div style="padding:16px 20px;background:var(--bg-white);border:1px solid var(--border);border-radius:var(--r);min-width:100px;box-shadow:var(--s1);"><div style="font-size:1.6rem;color:var(--accent);margin-bottom:7px;"><i class="fab fa-apple"></i></div><div style="font-size:.8rem;font-weight:700;color:var(--navy);">Logic Pro</div></div>
+        <div style="padding:16px 20px;background:var(--bg-white);border:1px solid var(--border);border-radius:var(--r);min-width:100px;box-shadow:var(--s1);"><div style="font-size:1.6rem;color:var(--accent);margin-bottom:7px;"><i class="fas fa-wave-square"></i></div><div style="font-size:.8rem;font-weight:700;color:var(--navy);">Pro Tools</div></div>
+        <div style="padding:16px 20px;background:var(--bg-white);border:1px solid var(--border);border-radius:var(--r);min-width:100px;box-shadow:var(--s1);"><div style="font-size:1.6rem;color:var(--accent);margin-bottom:7px;"><i class="fas fa-headphones"></i></div><div style="font-size:.8rem;font-weight:700;color:var(--navy);">FL Studio</div></div>
+        <div style="padding:16px 20px;background:var(--bg-white);border:1px solid var(--border);border-radius:var(--r);min-width:100px;box-shadow:var(--s1);"><div style="font-size:1.6rem;color:var(--accent);margin-bottom:7px;"><i class="fas fa-compact-disc"></i></div><div style="font-size:.8rem;font-weight:700;color:var(--navy);">Cubase</div></div>
+        <div style="padding:16px 20px;background:var(--bg-white);border:1px solid var(--border);border-radius:var(--r);min-width:100px;box-shadow:var(--s1);"><div style="font-size:1.6rem;color:var(--accent);margin-bottom:7px;"><i class="fas fa-sliders-h"></i></div><div style="font-size:.8rem;font-weight:700;color:var(--navy);">Studio One</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand"><a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Audio Intelligence" class="logo-img"/></a><p>Professional audio plugins and analog hardware for the modern studio.</p><div class="social-row"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-facebook"></i></a></div></div>
-      <div class="footer-col"><h4>Products</h4><ul><li><a href="products.html?cat=plugins">VST Plugins</a></li><li><a href="products.html?cat=hardware">Analog Hardware</a></li><li><a href="products.html?cat=bundles">Bundles</a></li><li><a href="products.html?cat=free">Free Downloads</a></li></ul></div>
-      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="updates.html">Updates</a></li><li><a href="support.html">Support</a></li><li><a href="#">Affiliates</a></li></ul></div>
-      <div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">EULA</a></li><li><a href="#">Refund Policy</a></li></ul></div>
-    </div>
-    <div class="footer-bottom"><p>© 2025 Audio Intelligence. All rights reserved.</p></div>
-  </div>
-</footer>
+<footer class="footer"><div class="container"><div class="footer-grid">
+  <div class="footer-brand"><a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Audio Intelligence" class="logo-img"/></a><p>Professional audio plugins and analog hardware for the modern studio.</p><div class="social-row"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-facebook"></i></a></div></div>
+  <div class="footer-col"><h4>Products</h4><ul><li><a href="products.html?cat=plugins">VST Plugins</a></li><li><a href="products.html?cat=hardware">Analog Hardware</a></li><li><a href="products.html?cat=bundles">Bundles</a></li><li><a href="products.html?cat=free">Free Downloads</a></li></ul></div>
+  <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="updates.html">Updates</a></li><li><a href="support.html">Support</a></li><li><a href="#">Affiliates</a></li></ul></div>
+  <div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">EULA</a></li><li><a href="#">Refund Policy</a></li></ul></div>
+</div><div class="footer-bottom"><p>© 2025 Audio Intelligence. All rights reserved.</p></div></div></footer>
 <script src="js/main.js"></script>
 </body>
 </html>

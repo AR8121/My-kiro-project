@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout — Audio Intelligence</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-wrap">
+    <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Audio Intelligence" class="logo-img"/></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="updates.html">Updates</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="support.html">Support</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="products.html" class="btn btn-ghost" style="padding:9px 18px;font-size:.88rem;"><i class="fas fa-arrow-left"></i> Back to Shop</a>
+      <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</nav>
+
+<!-- SUCCESS SCREEN (hidden by default) -->
+<div class="checkout-success" id="successScreen">
+  <div class="success-icon"><i class="fas fa-check"></i></div>
+  <h2>Order Confirmed! 🎉</h2>
+  <p>Thank you for your purchase. Your download links and license keys have been sent to your email. You'll receive them within 2 minutes.</p>
+  <div style="background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--r);padding:18px 22px;margin-bottom:28px;text-align:left;">
+    <p style="font-size:.84rem;color:var(--text-2);margin-bottom:6px;"><strong style="color:var(--navy);">Order ID:</strong> AI-<span id="orderId"></span></p>
+    <p style="font-size:.84rem;color:var(--text-2);"><strong style="color:var(--navy);">Total Charged:</strong> <span style="color:var(--accent);font-weight:700;" id="orderTotal2"></span></p>
+  </div>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <a href="products.html" class="btn btn-primary"><i class="fas fa-shopping-bag"></i> Continue Shopping</a>
+    <a href="support.html" class="btn btn-ghost"><i class="fas fa-headphones"></i> Support</a>
+  </div>
+</div>
+
+<!-- CHECKOUT FORM -->
+<div class="checkout-wrap" id="checkoutWrap">
+
+  <!-- LEFT COLUMN -->
+  <div class="checkout-left">
+    <h2><i class="fas fa-lock" style="color:var(--accent);font-size:1.1rem;"></i> Secure Checkout</h2>
+
+    <!-- STEP 1: CONTACT -->
+    <div class="checkout-box">
+      <div class="step-header"><span class="step-num">1</span> Contact Information</div>
+      <div class="form-row">
+        <div class="form-field"><label>First Name</label><input type="text" id="fname" placeholder="John" required/></div>
+        <div class="form-field"><label>Last Name</label><input type="text" id="lname" placeholder="Doe" required/></div>
+      </div>
+      <div class="form-field"><label>Email Address</label>
+        <div class="input-icon-wrap">
+          <input type="email" id="email" placeholder="john@studio.com" required/>
+          <i class="fas fa-envelope"></i>
+        </div>
+      </div>
+      <div class="form-field"><label>Country / Region</label>
+        <select id="country">
+          <option value="">Select country...</option>
+          <option>United States</option><option>United Kingdom</option>
+          <option>Canada</option><option>Australia</option>
+          <option>Germany</option><option>France</option>
+          <option>India</option><option>Japan</option>
+          <option>Brazil</option><option>Other</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- STEP 2: PAYMENT METHOD -->
+    <div class="checkout-box">
+      <div class="step-header"><span class="step-num">2</span> Payment Method</div>
+
+      <div class="pay-tabs">
+        <div class="pay-tab active" onclick="switchPay('card',this)">
+          <i class="fas fa-credit-card"></i>
+          <span>Credit Card</span>
+        </div>
+        <div class="pay-tab" onclick="switchPay('paypal',this)">
+          <i class="fab fa-paypal" style="color:#003087;"></i>
+          <span>PayPal</span>
+        </div>
+        <div class="pay-tab" onclick="switchPay('apple',this)">
+          <i class="fab fa-apple" style="color:#000;"></i>
+          <span>Apple Pay</span>
+        </div>
+        <div class="pay-tab" onclick="switchPay('crypto',this)">
+          <i class="fab fa-bitcoin" style="color:#f7931a;"></i>
+          <span>Crypto</span>
+        </div>
+      </div>
+
+      <!-- CARD PANEL -->
+      <div class="pay-panel active" id="panel-card">
+        <div class="form-field">
+          <label>Card Number</label>
+          <div class="input-icon-wrap">
+            <input type="text" id="cardNum" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)"/>
+            <span class="card-brand" id="cardBrand"></span>
+          </div>
+        </div>
+        <div class="form-field">
+          <label>Name on Card</label>
+          <input type="text" id="cardName" placeholder="John Doe"/>
+        </div>
+        <div class="card-row">
+          <div class="form-field">
+            <label>Expiry Date</label>
+            <input type="text" id="cardExp" placeholder="MM / YY" maxlength="7" oninput="formatExpiry(this)"/>
+          </div>
+          <div class="form-field">
+            <label>CVV / CVC
+              <span style="cursor:help;color:var(--text-3);" title="3 digits on back of card (Visa/MC) or 4 on front (Amex)"> <i class="fas fa-question-circle"></i></span>
+            </label>
+            <div class="input-icon-wrap">
+              <input type="text" id="cardCvv" placeholder="•••" maxlength="4"/>
+              <i class="fas fa-lock"></i>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:8px;">
+          <input type="checkbox" id="saveCard" style="width:16px;height:16px;accent-color:var(--accent);"/>
+          <label for="saveCard" style="font-size:.83rem;color:var(--text-2);cursor:pointer;">Save card for future purchases</label>
+        </div>
+        <!-- Card logos -->
+        <div style="display:flex;gap:8px;margin-top:16px;align-items:center;">
+          <span style="font-size:.75rem;color:var(--text-3);">Accepted:</span>
+          <span style="background:#1a1f71;color:#fff;padding:3px 8px;border-radius:4px;font-size:.7rem;font-weight:800;letter-spacing:.5px;">VISA</span>
+          <span style="background:#eb001b;color:#fff;padding:3px 8px;border-radius:4px;font-size:.7rem;font-weight:800;">MC</span>
+          <span style="background:#2e77bc;color:#fff;padding:3px 8px;border-radius:4px;font-size:.7rem;font-weight:800;">AMEX</span>
+          <span style="background:#003087;color:#fff;padding:3px 8px;border-radius:4px;font-size:.7rem;font-weight:800;">DISC</span>
+        </div>
+      </div>
+
+      <!-- PAYPAL PANEL -->
+      <div class="pay-panel" id="panel-paypal">
+        <div class="pay-redirect-box">
+          <div style="font-size:2.8rem;margin-bottom:12px;">
+            <i class="fab fa-paypal" style="color:#003087;"></i>
+          </div>
+          <p>You'll be securely redirected to PayPal to complete your payment. Your cart will be saved.</p>
+          <button class="btn-paypal" onclick="processPayment()">
+            <i class="fab fa-paypal"></i> Continue with PayPal
+          </button>
+          <p style="font-size:.76rem;color:var(--text-3);margin-top:12px;margin-bottom:0;">PayPal Buyer Protection included on all orders</p>
+        </div>
+      </div>
+
+      <!-- APPLE PAY PANEL -->
+      <div class="pay-panel" id="panel-apple">
+        <div class="pay-redirect-box">
+          <div style="font-size:2.8rem;margin-bottom:12px;">
+            <i class="fab fa-apple" style="color:#000;"></i>
+          </div>
+          <p>Use Touch ID or Face ID to pay instantly with Apple Pay. No card details needed.</p>
+          <button class="btn-apple" onclick="processPayment()">
+            <i class="fab fa-apple"></i> Pay with Apple Pay
+          </button>
+          <p style="font-size:.76rem;color:var(--text-3);margin-top:12px;margin-bottom:0;">Only available on Safari with Apple Pay enabled</p>
+        </div>
+      </div>
+
+      <!-- CRYPTO PANEL -->
+      <div class="pay-panel" id="panel-crypto">
+        <div class="pay-redirect-box">
+          <div style="font-size:2.8rem;margin-bottom:12px;">
+            <i class="fab fa-bitcoin" style="color:#f7931a;"></i>
+          </div>
+          <p>Pay with Bitcoin, Ethereum, USDC, or other major cryptocurrencies via Coinbase Commerce.</p>
+          <button class="btn-crypto" onclick="processPayment()">
+            <i class="fab fa-bitcoin"></i> Pay with Crypto
+          </button>
+          <div style="display:flex;justify-content:center;gap:12px;margin-top:14px;flex-wrap:wrap;">
+            <span style="font-size:.75rem;color:var(--text-3);font-weight:600;"><i class="fab fa-bitcoin" style="color:#f7931a;"></i> BTC</span>
+            <span style="font-size:.75rem;color:var(--text-3);font-weight:600;"><i class="fab fa-ethereum" style="color:#627eea;"></i> ETH</span>
+            <span style="font-size:.75rem;color:var(--text-3);font-weight:600;">USDC · USDT · SOL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: REVIEW & PLACE ORDER -->
+    <div class="checkout-box" id="placeOrderBox">
+      <div class="step-header"><span class="step-num">3</span> Review &amp; Place Order</div>
+      <div style="background:var(--accent-soft);border:1px solid var(--accent-border);border-radius:8px;padding:13px 16px;margin-bottom:18px;display:flex;align-items:center;gap:10px;">
+        <i class="fas fa-shield-alt" style="color:var(--green);font-size:1.1rem;"></i>
+        <p style="font-size:.83rem;color:var(--navy);margin:0;">All transactions are encrypted with 256-bit SSL. We never store card details.</p>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:9px;margin-bottom:18px;">
+        <input type="checkbox" id="termsCheck" style="width:16px;height:16px;accent-color:var(--accent);margin-top:3px;"/>
+        <label for="termsCheck" style="font-size:.84rem;color:var(--text-2);cursor:pointer;line-height:1.5;">
+          I agree to the <a href="#" style="color:var(--accent);text-decoration:underline;">Terms of Service</a>,
+          <a href="#" style="color:var(--accent);text-decoration:underline;">EULA</a>, and
+          <a href="#" style="color:var(--accent);text-decoration:underline;">Refund Policy</a>.
+          Digital products are non-refundable after download unless covered by our 30-day policy.
+        </label>
+      </div>
+      <button class="btn btn-primary fw" id="placeOrderBtn" onclick="placeOrder()" style="font-size:1.05rem;padding:15px;">
+        <i class="fas fa-lock"></i> Place Order & Pay <span id="btnTotal"></span>
+      </button>
+      <p style="font-size:.76rem;color:var(--text-3);text-align:center;margin-top:10px;">
+        <i class="fas fa-bolt" style="color:var(--accent);"></i>
+        Download links will be emailed instantly after payment
+      </p>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN: ORDER SUMMARY -->
+  <div class="order-summary" id="orderSummary">
+    <h3><i class="fas fa-shopping-bag" style="color:var(--accent);margin-right:8px;"></i> Order Summary</h3>
+
+    <!-- Items injected by JS -->
+    <div id="summaryItems"></div>
+
+    <hr class="order-sep"/>
+
+    <!-- PROMO CODE -->
+    <div class="promo-row">
+      <input type="text" id="promoInput" placeholder="Promo code" style="text-transform:uppercase;"/>
+      <button onclick="applyPromo()">Apply</button>
+    </div>
+    <div id="promoMsg" style="font-size:.78rem;margin-top:6px;display:none;"></div>
+
+    <hr class="order-sep"/>
+
+    <div class="order-row"><span>Subtotal</span><span id="summarySubtotal">$0.00</span></div>
+    <div class="order-row" id="discountRow" style="display:none;color:var(--green);font-weight:600;">
+      <span>Discount</span><span id="discountAmt">-$0.00</span>
+    </div>
+    <div class="order-row"><span>Tax (0%)</span><span>$0.00</span></div>
+    <div class="order-row"><span>Delivery</span><span style="color:var(--green);font-weight:600;">FREE</span></div>
+    <div class="order-total-row">
+      <span>Total</span>
+      <span id="summaryTotal">$0.00</span>
+    </div>
+
+    <!-- Secure badges -->
+    <div class="secure-badges">
+      <div class="secure-badge"><i class="fas fa-lock"></i> SSL Secure</div>
+      <div class="secure-badge"><i class="fas fa-shield-alt"></i> 256-bit Encryption</div>
+      <div class="secure-badge"><i class="fas fa-undo"></i> 30-Day Refund</div>
+    </div>
+
+    <!-- Payment method logos -->
+    <div style="border-top:1px solid var(--border);margin-top:16px;padding-top:14px;text-align:center;">
+      <p style="font-size:.72rem;color:var(--text-3);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;">Accepted Payments</p>
+      <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;align-items:center;">
+        <span style="background:#1a1f71;color:#fff;padding:4px 10px;border-radius:4px;font-size:.72rem;font-weight:800;letter-spacing:.5px;">VISA</span>
+        <span style="background:#eb001b;color:#fff;padding:4px 10px;border-radius:4px;font-size:.72rem;font-weight:800;">MASTERCARD</span>
+        <span style="background:#003087;color:#fff;padding:4px 10px;border-radius:4px;font-size:.72rem;font-weight:800;">PayPal</span>
+        <span style="background:#000;color:#fff;padding:4px 10px;border-radius:4px;font-size:.72rem;font-weight:800;">Apple Pay</span>
+        <span style="background:#f7931a;color:#fff;padding:4px 10px;border-radius:4px;font-size:.72rem;font-weight:800;">Crypto</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end checkout-wrap -->
+
+<script src="js/main.js"></script>
+<script>
+  // ---- Payment tab switch ----
+  function switchPay(method, el) {
+    document.querySelectorAll('.pay-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.pay-panel').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('panel-' + method).classList.add('active');
+    document.getElementById('placeOrderBox').style.display =
+      (method === 'paypal' || method === 'apple' || method === 'crypto') ? 'none' : 'block';
+  }
+
+  // ---- Card number formatter ----
+  function formatCard(el) {
+    let v = el.value.replace(/\D/g,'').substring(0,16);
+    el.value = v.replace(/(.{4})/g,'$1 ').trim();
+    const brand = document.getElementById('cardBrand');
+    if(v.startsWith('4')) brand.textContent = 'VISA';
+    else if(v.startsWith('5')) brand.textContent = 'MC';
+    else if(v.startsWith('3')) brand.textContent = 'AMEX';
+    else brand.textContent = '';
+  }
+
+  // ---- Expiry formatter ----
+  function formatExpiry(el) {
+    let v = el.value.replace(/\D/g,'').substring(0,4);
+    if(v.length >= 2) v = v.substring(0,2) + ' / ' + v.substring(2);
+    el.value = v;
+  }
+
+  // ---- Promo code ----
+  const PROMOS = { 'AUDIO20': 20, 'LAUNCH10': 10, 'FREE5': 5 };
+  let discount = 0;
+  function applyPromo() {
+    const code = document.getElementById('promoInput').value.toUpperCase().trim();
+    const msg = document.getElementById('promoMsg');
+    msg.style.display = 'block';
+    if (PROMOS[code]) {
+      discount = PROMOS[code];
+      msg.style.color = 'var(--green)';
+      msg.innerHTML = '<i class="fas fa-check-circle"></i> Code applied! ' + discount + '% off';
+      updateSummary();
+    } else {
+      discount = 0;
+      msg.style.color = 'var(--red)';
+      msg.innerHTML = '<i class="fas fa-times-circle"></i> Invalid promo code';
+      updateSummary();
+    }
+  }
+
+  // ---- Render order summary from cart ----
+  function updateSummary() {
+    const cart = JSON.parse(localStorage.getItem('ai_cart') || '[]');
+    const itemsEl = document.getElementById('summaryItems');
+    if (cart.length === 0) {
+      itemsEl.innerHTML = '<p style="color:var(--text-3);font-size:.88rem;text-align:center;padding:20px 0;">Your cart is empty. <a href="products.html" style="color:var(--accent);">Go shopping</a></p>';
+      document.getElementById('summarySubtotal').textContent = '$0.00';
+      document.getElementById('summaryTotal').textContent = '$0.00';
+      document.getElementById('btnTotal').textContent = '';
+      return;
+    }
+    let subtotal = 0;
+    itemsEl.innerHTML = cart.map(item => {
+      subtotal += item.price * item.qty;
+      return `<div class="order-item">
+        <div class="order-item-name">${item.name}${item.qty > 1 ? ' ×'+item.qty : ''}</div>
+        <div class="order-item-price">$${(item.price * item.qty).toFixed(2)}</div>
+      </div>`;
+    }).join('');
+    const discountAmt = (subtotal * discount / 100);
+    const total = subtotal - discountAmt;
+    document.getElementById('summarySubtotal').textContent = '$' + subtotal.toFixed(2);
+    const dRow = document.getElementById('discountRow');
+    if(discount > 0) {
+      dRow.style.display = 'flex';
+      document.getElementById('discountAmt').textContent = '-$' + discountAmt.toFixed(2);
+    } else { dRow.style.display = 'none'; }
+    document.getElementById('summaryTotal').textContent = '$' + total.toFixed(2);
+    document.getElementById('btnTotal').textContent = '— $' + total.toFixed(2);
+    window._checkoutTotal = total;
+  }
+
+  // ---- Validate & place order ----
+  function processPayment() {
+    document.getElementById('checkoutWrap').style.display = 'none';
+    const oid = Math.floor(Math.random() * 900000 + 100000);
+    document.getElementById('orderId').textContent = oid;
+    document.getElementById('orderTotal2').textContent = '$' + (window._checkoutTotal || 0).toFixed(2);
+    document.getElementById('successScreen').style.display = 'block';
+    localStorage.removeItem('ai_cart');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function placeOrder() {
+    const fname = document.getElementById('fname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const country = document.getElementById('country').value;
+    const cardNum = document.getElementById('cardNum').value.replace(/\s/g,'');
+    const cardExp = document.getElementById('cardExp').value.trim();
+    const cardCvv = document.getElementById('cardCvv').value.trim();
+    const terms = document.getElementById('termsCheck').checked;
+    if(!fname || !email || !country) { toast('<i class="fas fa-exclamation-circle"></i> Please fill in all contact fields.'); return; }
+    if(!email.includes('@')) { toast('<i class="fas fa-exclamation-circle"></i> Please enter a valid email.'); return; }
+    if(cardNum.length < 16) { toast('<i class="fas fa-exclamation-circle"></i> Please enter a valid card number.'); return; }
+    if(cardExp.length < 7) { toast('<i class="fas fa-exclamation-circle"></i> Please enter a valid expiry date.'); return; }
+    if(cardCvv.length < 3) { toast('<i class="fas fa-exclamation-circle"></i> Please enter your CVV.'); return; }
+    if(!terms) { toast('<i class="fas fa-exclamation-circle"></i> Please agree to the terms to continue.'); return; }
+    const btn = document.getElementById('placeOrderBtn');
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+    btn.disabled = true;
+    btn.style.opacity = '.7';
+    setTimeout(processPayment, 2200);
+  }
+
+  // ---- Init ----
+  document.addEventListener('DOMContentLoaded', () => {
+    initNavbar();
+    updateSummary();
+    const cart = JSON.parse(localStorage.getItem('ai_cart') || '[]');
+    if (cart.length === 0 && !document.getElementById('successScreen').style.display) {
+      document.getElementById('placeOrderBox').style.display = 'none';
+    }
+  });
+</script>
+</body>
+</html>

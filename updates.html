@@ -4,24 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Updates — Audio Intelligence</title>
-  <meta name="description" content="Latest updates, patches, and new features for Audio Intelligence plugins and hardware."/>
   <link rel="stylesheet" href="css/style.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
-
-<!-- NAVBAR -->
 <nav class="navbar" id="navbar">
   <div class="nav-wrap">
     <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Audio Intelligence" class="logo-img"/></a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="products.html">Products</a></li>
-      <li><a href="updates.html" class="active">Updates</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="support.html">Support</a></li>
+      <li><a href="index.html">Home</a></li><li><a href="products.html">Products</a></li>
+      <li><a href="updates.html" class="active">Updates</a></li><li><a href="about.html">About</a></li><li><a href="support.html">Support</a></li>
     </ul>
     <div class="nav-actions">
       <button class="cart-btn" id="cartBtn"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cartBadge">0</span></button>
@@ -32,21 +26,19 @@
 </nav>
 <div class="overlay" id="overlay"></div>
 <div class="drawer" id="drawer">
-  <div class="drawer-head"><h3>Your Cart</h3><button class="drawer-close" id="drawerClose"><i class="fas fa-times"></i></button></div>
+  <div class="drawer-head"><h3><i class="fas fa-shopping-bag" style="color:var(--accent);margin-right:8px;"></i>Your Cart</h3><button class="drawer-close" id="drawerClose"><i class="fas fa-times"></i></button></div>
   <div class="drawer-items" id="cartItems"><div class="cart-empty"><i class="fas fa-music"></i><p>Your cart is empty</p></div></div>
-  <div class="drawer-foot" id="cartFoot" style="display:none"><div class="cart-total">Total: <strong id="cartTotal">$0.00</strong></div><button class="btn btn-primary fw">Proceed to Checkout</button></div>
-</div>
-
-<!-- PAGE HEADER -->
-<div class="page-header">
-  <div class="container">
-    <span class="tag">Changelog</span>
-    <h1>Product Updates</h1>
-    <p>All updates are free for existing customers — download from your account dashboard.</p>
+  <div class="drawer-foot" id="cartFoot" style="display:none">
+    <div class="cart-subtotal"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
+    <div class="cart-total-row"><span>Total</span><strong id="cartTotal">$0.00</strong></div>
+    <div class="pay-methods-mini" id="payLogoStrip" style="display:none"><span style="font-size:.7rem;color:var(--text-3);font-weight:600;">Pay with:</span><span style="background:#1a1f71;color:#fff;padding:2px 7px;border-radius:3px;font-size:.66rem;font-weight:800;">VISA</span><span style="background:#eb001b;color:#fff;padding:2px 7px;border-radius:3px;font-size:.66rem;font-weight:800;">MC</span><span style="background:#003087;color:#fff;padding:2px 7px;border-radius:3px;font-size:.66rem;font-weight:800;">PayPal</span><span style="background:#000;color:#fff;padding:2px 7px;border-radius:3px;font-size:.66rem;font-weight:800;">Apple Pay</span></div>
+    <a href="checkout.html" class="btn btn-primary fw" style="margin-top:4px;"><i class="fas fa-lock"></i> Secure Checkout</a>
+    <p style="font-size:.72rem;color:var(--text-3);text-align:center;margin-top:8px;"><i class="fas fa-shield-alt" style="color:var(--green);"></i> 256-bit SSL · 30-day refund guaranteed</p>
   </div>
 </div>
 
-<!-- NOTIFY BANNER -->
+<div class="page-header"><div class="container"><span class="tag">Changelog</span><h1>Product Updates</h1><p>All updates are free for existing customers — download from your account dashboard.</p></div></div>
+
 <div style="background:var(--accent-soft);border-bottom:1px solid var(--accent-border);padding:14px 0;">
   <div class="container" style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;text-align:center;">
     <i class="fas fa-bell" style="color:var(--accent);"></i>
@@ -55,11 +47,8 @@
   </div>
 </div>
 
-<!-- UPDATES LIST -->
 <section class="section">
   <div class="container">
-
-    <!-- PRODUCT FILTER -->
     <div class="filter-bar" style="justify-content:flex-start;padding:0 0 30px;border-bottom:none;background:none;">
       <button class="fbtn on" data-pf="all">All Products</button>
       <button class="fbtn" data-pf="AI Compressor X">Compressor X</button>
@@ -67,127 +56,26 @@
       <button class="fbtn" data-pf="Space Reverb AI">Space Reverb</button>
       <button class="fbtn" data-pf="AI Channel Strip">Channel Strip</button>
     </div>
-
-    <div class="updates-list" id="updatesList">
-
-      <div class="upd-card fade-up" data-prod="AI Compressor X">
-        <div><div class="ver-badge">v2.3.0</div></div>
-        <div class="upd-body">
-          <h3>AI Compressor X <span class="upd-type feat">New Feature</span></h3>
-          <div class="upd-meta"><span><i class="fas fa-calendar-alt"></i> May 15, 2025</span><span><i class="fas fa-tag"></i> AI Compressor X</span></div>
-          <ul class="upd-notes">
-            <li>Added "Vintage" mode with analog-modeled knee behavior</li>
-            <li>New Mid/Side processing mode for stereo bus compression</li>
-            <li>Spectrum analyzer overlay on the gain reduction meter</li>
-            <li>CPU performance improved 22% on Apple Silicon</li>
-            <li>Fixed rare click/pop artifact during parameter automation</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="upd-card fade-up" data-prod="Transformer EQ Pro">
-        <div><div class="ver-badge">v1.5.1</div></div>
-        <div class="upd-body">
-          <h3>Transformer EQ Pro <span class="upd-type impr">Improvement</span></h3>
-          <div class="upd-meta"><span><i class="fas fa-calendar-alt"></i> May 10, 2025</span><span><i class="fas fa-tag"></i> Transformer EQ Pro</span></div>
-          <ul class="upd-notes">
-            <li>Improved transformer saturation algorithm for more authentic warmth</li>
-            <li>4 new EQ curve shapes: Shelf, Bell, Tilt, and High-Shelf Resonant</li>
-            <li>Fixed compatibility issue with Pro Tools 2024.9 on Windows</li>
-            <li>Preset browser now supports sub-folders and starred favourites</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="upd-card fade-up" data-prod="Space Reverb AI">
-        <div><div class="ver-badge">v3.0.0</div></div>
-        <div class="upd-body">
-          <h3>Space Reverb AI <span class="upd-type feat">Major Update</span></h3>
-          <div class="upd-meta"><span><i class="fas fa-calendar-alt"></i> April 28, 2025</span><span><i class="fas fa-tag"></i> Space Reverb AI</span></div>
-          <ul class="upd-notes">
-            <li>Complete neural engine rewrite — 3× more realistic room modeling</li>
-            <li>50 new factory presets designed by professional mixing engineers</li>
-            <li>Freeze mode for infinite reverb tails</li>
-            <li>New modulation section: chorus, shimmer, and pitch-shift</li>
-            <li>Latency reduced from 512 to 128 samples in all modes</li>
-            <li>Fully resizable UI with full HiDPI / Retina support</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="upd-card fade-up" data-prod="AI Channel Strip">
-        <div><div class="ver-badge">v1.2.0</div></div>
-        <div class="upd-body">
-          <h3>AI Channel Strip Bundle <span class="upd-type impr">Improvement</span></h3>
-          <div class="upd-meta"><span><i class="fas fa-calendar-alt"></i> April 12, 2025</span><span><i class="fas fa-tag"></i> AI Channel Strip</span></div>
-          <ul class="upd-notes">
-            <li>Unified preset management across all 3 bundle plugins</li>
-            <li>New "Link" mode chains EQ → Comp → Sat with shared bypass</li>
-            <li>A/B comparison feature added across all plugins</li>
-            <li>macOS 15 Sequoia compatibility confirmed</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="upd-card fade-up" data-prod="AI Compressor X">
-        <div><div class="ver-badge">v2.2.3</div></div>
-        <div class="upd-body">
-          <h3>AI Compressor X <span class="upd-type fix">Bug Fix</span></h3>
-          <div class="upd-meta"><span><i class="fas fa-calendar-alt"></i> March 22, 2025</span><span><i class="fas fa-tag"></i> AI Compressor X</span></div>
-          <ul class="upd-notes">
-            <li>Fixed crash on Ableton Live 12.1 with multi-band mode enabled</li>
-            <li>Corrected meter ballistics inaccuracy at 96 kHz</li>
-            <li>Fixed incorrect preset recall when using DAW automation</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="upd-card fade-up" data-prod="Transformer EQ Pro">
-        <div><div class="ver-badge">v1.4.0</div></div>
-        <div class="upd-body">
-          <h3>Transformer EQ Pro <span class="upd-type feat">New Feature</span></h3>
-          <div class="upd-meta"><span><i class="fas fa-calendar-alt"></i> February 14, 2025</span><span><i class="fas fa-tag"></i> Transformer EQ Pro</span></div>
-          <ul class="upd-notes">
-            <li>Mid/Side EQ mode with independent M and S channel control</li>
-            <li>New analog noise floor simulation for authentic vintage character</li>
-            <li>Extended frequency range to 10 Hz–40 kHz</li>
-            <li>Improved GUI rendering performance on Windows 11</li>
-          </ul>
-        </div>
-      </div>
-
+    <div class="updates-list">
+      <div class="upd-card fade-up" data-prod="AI Compressor X"><div><div class="ver-badge">v2.3.0</div></div><div class="upd-body"><h3>AI Compressor X <span class="upd-type feat">New Feature</span></h3><div class="upd-meta"><span><i class="fas fa-calendar-alt"></i> May 15, 2025</span><span><i class="fas fa-tag"></i> AI Compressor X</span></div><ul class="upd-notes"><li>Added "Vintage" mode with analog-modeled knee behavior</li><li>New Mid/Side processing mode for stereo bus compression</li><li>Spectrum analyzer overlay on the gain reduction meter</li><li>CPU performance improved 22% on Apple Silicon</li><li>Fixed rare click/pop artifact during parameter automation</li></ul></div></div>
+      <div class="upd-card fade-up" data-prod="Transformer EQ Pro"><div><div class="ver-badge">v1.5.1</div></div><div class="upd-body"><h3>Transformer EQ Pro <span class="upd-type impr">Improvement</span></h3><div class="upd-meta"><span><i class="fas fa-calendar-alt"></i> May 10, 2025</span><span><i class="fas fa-tag"></i> Transformer EQ Pro</span></div><ul class="upd-notes"><li>Improved transformer saturation algorithm for more authentic warmth</li><li>4 new EQ curve shapes: Shelf, Bell, Tilt, High-Shelf Resonant</li><li>Fixed compatibility issue with Pro Tools 2024.9 on Windows</li><li>Preset browser now supports sub-folders and starred favourites</li></ul></div></div>
+      <div class="upd-card fade-up" data-prod="Space Reverb AI"><div><div class="ver-badge">v3.0.0</div></div><div class="upd-body"><h3>Space Reverb AI <span class="upd-type feat">Major Update</span></h3><div class="upd-meta"><span><i class="fas fa-calendar-alt"></i> April 28, 2025</span><span><i class="fas fa-tag"></i> Space Reverb AI</span></div><ul class="upd-notes"><li>Complete neural engine rewrite — 3× more realistic room modeling</li><li>50 new factory presets by professional mixing engineers</li><li>Freeze mode for infinite reverb tails</li><li>New modulation: chorus, shimmer, and pitch-shift</li><li>Latency reduced from 512 to 128 samples in all modes</li><li>Fully resizable UI with full HiDPI / Retina support</li></ul></div></div>
+      <div class="upd-card fade-up" data-prod="AI Channel Strip"><div><div class="ver-badge">v1.2.0</div></div><div class="upd-body"><h3>AI Channel Strip Bundle <span class="upd-type impr">Improvement</span></h3><div class="upd-meta"><span><i class="fas fa-calendar-alt"></i> April 12, 2025</span><span><i class="fas fa-tag"></i> AI Channel Strip</span></div><ul class="upd-notes"><li>Unified preset management across all 3 bundle plugins</li><li>New "Link" mode chains EQ → Comp → Sat with shared bypass</li><li>A/B comparison feature added across all plugins</li><li>macOS 15 Sequoia compatibility confirmed</li></ul></div></div>
+      <div class="upd-card fade-up" data-prod="AI Compressor X"><div><div class="ver-badge">v2.2.3</div></div><div class="upd-body"><h3>AI Compressor X <span class="upd-type fix">Bug Fix</span></h3><div class="upd-meta"><span><i class="fas fa-calendar-alt"></i> March 22, 2025</span><span><i class="fas fa-tag"></i> AI Compressor X</span></div><ul class="upd-notes"><li>Fixed crash on Ableton Live 12.1 with multi-band mode enabled</li><li>Corrected meter ballistics inaccuracy at 96 kHz</li><li>Fixed incorrect preset recall when using DAW automation</li></ul></div></div>
     </div>
   </div>
 </section>
 
-<!-- NEWSLETTER -->
 <section class="section nl-section" id="newsletter">
-  <div class="container">
-    <div class="nl-box">
-      <div class="nl-content">
-        <h2>Get Update Notifications</h2>
-        <p>We'll email you when new versions of your plugins are available — completely free.</p>
-      </div>
-      <form class="nl-form" onsubmit="subscribeNewsletter(event)">
-        <input type="email" placeholder="Your email address" required/>
-        <button type="submit" class="btn btn-primary">Notify Me</button>
-      </form>
-    </div>
-  </div>
+  <div class="container"><div class="nl-box"><div class="nl-content"><h2>Get Update Notifications</h2><p>We'll email you when new versions are available — completely free.</p></div><form class="nl-form" onsubmit="subscribeNewsletter(event)"><input type="email" placeholder="Your email address" required/><button type="submit" class="btn btn-primary">Notify Me</button></form></div></div>
 </section>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand"><a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Audio Intelligence" class="logo-img"/></a><p>Professional audio plugins and analog hardware for the modern studio.</p><div class="social-row"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-facebook"></i></a></div></div>
-      <div class="footer-col"><h4>Products</h4><ul><li><a href="products.html?cat=plugins">VST Plugins</a></li><li><a href="products.html?cat=hardware">Analog Hardware</a></li><li><a href="products.html?cat=bundles">Bundles</a></li><li><a href="products.html?cat=free">Free Downloads</a></li></ul></div>
-      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="updates.html">Updates</a></li><li><a href="support.html">Support</a></li></ul></div>
-      <div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">EULA</a></li><li><a href="#">Refund Policy</a></li></ul></div>
-    </div>
-    <div class="footer-bottom"><p>© 2025 Audio Intelligence. All rights reserved.</p></div>
-  </div>
-</footer>
+<footer class="footer"><div class="container"><div class="footer-grid">
+  <div class="footer-brand"><a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Audio Intelligence" class="logo-img"/></a><p>Professional audio plugins and analog hardware for the modern studio.</p><div class="social-row"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-facebook"></i></a></div></div>
+  <div class="footer-col"><h4>Products</h4><ul><li><a href="products.html?cat=plugins">VST Plugins</a></li><li><a href="products.html?cat=hardware">Analog Hardware</a></li><li><a href="products.html?cat=bundles">Bundles</a></li><li><a href="products.html?cat=free">Free Downloads</a></li></ul></div>
+  <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="updates.html">Updates</a></li><li><a href="support.html">Support</a></li></ul></div>
+  <div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">EULA</a></li><li><a href="#">Refund Policy</a></li></ul></div>
+</div><div class="footer-bottom"><p>© 2025 Audio Intelligence. All rights reserved.</p></div></div></footer>
 
 <script src="js/main.js"></script>
 <script>

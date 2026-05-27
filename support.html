@@ -4,24 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Support — Audio Intelligence</title>
-  <meta name="description" content="Get help with Audio Intelligence products. Email support, Discord community, docs, and FAQs."/>
   <link rel="stylesheet" href="css/style.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
-
-<!-- NAVBAR -->
 <nav class="navbar" id="navbar">
   <div class="nav-wrap">
     <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Audio Intelligence" class="logo-img"/></a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="products.html">Products</a></li>
-      <li><a href="updates.html">Updates</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="support.html" class="active">Support</a></li>
+      <li><a href="index.html">Home</a></li><li><a href="products.html">Products</a></li>
+      <li><a href="updates.html">Updates</a></li><li><a href="about.html">About</a></li><li><a href="support.html" class="active">Support</a></li>
     </ul>
     <div class="nav-actions">
       <button class="cart-btn" id="cartBtn"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cartBadge">0</span></button>
@@ -32,158 +26,88 @@
 </nav>
 <div class="overlay" id="overlay"></div>
 <div class="drawer" id="drawer">
-  <div class="drawer-head"><h3>Your Cart</h3><button class="drawer-close" id="drawerClose"><i class="fas fa-times"></i></button></div>
+  <div class="drawer-head"><h3><i class="fas fa-shopping-bag" style="color:var(--accent);margin-right:8px;"></i>Your Cart</h3><button class="drawer-close" id="drawerClose"><i class="fas fa-times"></i></button></div>
   <div class="drawer-items" id="cartItems"><div class="cart-empty"><i class="fas fa-music"></i><p>Your cart is empty</p></div></div>
-  <div class="drawer-foot" id="cartFoot" style="display:none"><div class="cart-total">Total: <strong id="cartTotal">$0.00</strong></div><button class="btn btn-primary fw">Proceed to Checkout</button></div>
-</div>
-
-<!-- PAGE HEADER -->
-<div class="page-header">
-  <div class="container">
-    <span class="tag">Help Center</span>
-    <h1>Support</h1>
-    <p>We're here to help. Average response time under 4 hours on business days.</p>
+  <div class="drawer-foot" id="cartFoot" style="display:none">
+    <div class="cart-subtotal"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
+    <div class="cart-total-row"><span>Total</span><strong id="cartTotal">$0.00</strong></div>
+    <div class="pay-methods-mini" id="payLogoStrip" style="display:none"><span style="font-size:.7rem;color:var(--text-3);font-weight:600;">Pay with:</span><span style="background:#1a1f71;color:#fff;padding:2px 7px;border-radius:3px;font-size:.66rem;font-weight:800;">VISA</span><span style="background:#eb001b;color:#fff;padding:2px 7px;border-radius:3px;font-size:.66rem;font-weight:800;">MC</span><span style="background:#003087;color:#fff;padding:2px 7px;border-radius:3px;font-size:.66rem;font-weight:800;">PayPal</span><span style="background:#000;color:#fff;padding:2px 7px;border-radius:3px;font-size:.66rem;font-weight:800;">Apple Pay</span></div>
+    <a href="checkout.html" class="btn btn-primary fw" style="margin-top:4px;"><i class="fas fa-lock"></i> Secure Checkout</a>
+    <p style="font-size:.72rem;color:var(--text-3);text-align:center;margin-top:8px;"><i class="fas fa-shield-alt" style="color:var(--green);"></i> 256-bit SSL · 30-day refund guaranteed</p>
   </div>
 </div>
 
-<!-- SUPPORT CHANNELS -->
+<div class="page-header"><div class="container"><span class="tag">Help Center</span><h1>Support</h1><p>We're here to help. Average response time under 4 hours on business days.</p></div></div>
+
 <section class="section">
   <div class="container">
     <div class="support-cards">
-      <div class="sup-card fade-up">
-        <div class="sup-icon"><i class="fas fa-envelope"></i></div>
-        <h4>Email Support</h4>
-        <p>Send a ticket and a real engineer will respond fast.</p>
-        <a href="mailto:support@audiointelligence.com" class="btn btn-primary">Send Email</a>
-      </div>
-      <div class="sup-card fade-up">
-        <div class="sup-icon"><i class="fab fa-discord"></i></div>
-        <h4>Discord Community</h4>
-        <p>Join 5,000+ producers on our official Discord server.</p>
-        <a href="#" class="btn btn-ghost">Join Discord</a>
-      </div>
-      <div class="sup-card fade-up">
-        <div class="sup-icon"><i class="fas fa-book-open"></i></div>
-        <h4>Documentation</h4>
-        <p>Full manuals, video tutorials, and setup guides.</p>
-        <a href="#" class="btn btn-ghost">View Docs</a>
-      </div>
-      <div class="sup-card fade-up">
-        <div class="sup-icon"><i class="fab fa-youtube"></i></div>
-        <h4>Video Tutorials</h4>
-        <p>Watch step-by-step guides for every product.</p>
-        <a href="#" class="btn btn-ghost">Watch Videos</a>
-      </div>
+      <div class="sup-card fade-up"><div class="sup-icon"><i class="fas fa-envelope"></i></div><h4>Email Support</h4><p>Send a ticket and a real engineer will respond fast.</p><a href="mailto:support@audiointelligence.com" class="btn btn-primary">Send Email</a></div>
+      <div class="sup-card fade-up"><div class="sup-icon"><i class="fab fa-discord"></i></div><h4>Discord Community</h4><p>Join 5,000+ producers on our official Discord server.</p><a href="#" class="btn btn-ghost">Join Discord</a></div>
+      <div class="sup-card fade-up"><div class="sup-icon"><i class="fas fa-book-open"></i></div><h4>Documentation</h4><p>Full manuals, video tutorials, and setup guides.</p><a href="#" class="btn btn-ghost">View Docs</a></div>
+      <div class="sup-card fade-up"><div class="sup-icon"><i class="fas fa-lock"></i></div><h4>Payment Issues</h4><p>Problems with checkout, billing, or license keys.</p><a href="mailto:billing@audiointelligence.com" class="btn btn-ghost">Contact Billing</a></div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT FORM -->
 <section class="section section-alt">
   <div class="container">
     <div class="contact-grid">
-      <!-- LEFT -->
       <div class="contact-info fade-up">
         <span class="tag">Contact Us</span>
         <h2>Get in Touch</h2>
-        <p>Have a question, issue, or feedback? Fill out the form and we'll get back to you as quickly as possible.</p>
-        <div class="ci-row">
-          <div class="ci-ico"><i class="fas fa-envelope"></i></div>
-          <div><strong>support@audiointelligence.com</strong><small>For technical &amp; sales inquiries</small></div>
-        </div>
-        <div class="ci-row">
-          <div class="ci-ico"><i class="fas fa-clock"></i></div>
-          <div><strong>Mon–Fri, 9am–6pm PST</strong><small>Average reply under 4 hours</small></div>
-        </div>
-        <div class="ci-row">
-          <div class="ci-ico"><i class="fas fa-map-marker-alt"></i></div>
-          <div><strong>Los Angeles, California</strong><small>Global hardware shipping available</small></div>
-        </div>
+        <p>Have a question, issue, or feedback? We'll get back to you as quickly as possible.</p>
+        <div class="ci-row"><div class="ci-ico"><i class="fas fa-envelope"></i></div><div><strong>support@audiointelligence.com</strong><small>Technical &amp; sales inquiries</small></div></div>
+        <div class="ci-row"><div class="ci-ico"><i class="fas fa-credit-card"></i></div><div><strong>billing@audiointelligence.com</strong><small>Payment, billing &amp; license issues</small></div></div>
+        <div class="ci-row"><div class="ci-ico"><i class="fas fa-clock"></i></div><div><strong>Mon–Fri, 9am–6pm PST</strong><small>Average reply under 4 hours</small></div></div>
+        <div class="ci-row"><div class="ci-ico"><i class="fas fa-map-marker-alt"></i></div><div><strong>Los Angeles, California</strong><small>Global hardware shipping available</small></div></div>
       </div>
-      <!-- FORM -->
       <form class="fade-up" onsubmit="submitContact(event)">
         <div class="form-row">
           <div class="form-field"><label>First Name</label><input type="text" placeholder="John" required/></div>
           <div class="form-field"><label>Last Name</label><input type="text" placeholder="Doe" required/></div>
         </div>
         <div class="form-field"><label>Email</label><input type="email" placeholder="you@email.com" required/></div>
-        <div class="form-field">
-          <label>Product</label>
+        <div class="form-field"><label>Subject</label>
           <select>
-            <option>AI Compressor X</option>
-            <option>Transformer EQ Pro</option>
-            <option>Space Reverb AI</option>
-            <option>AI Channel Strip Bundle</option>
-            <option>Tape Saturator</option>
-            <option>Free Limiter X</option>
-            <option>Analog Preamp 500</option>
-            <option>Analog Bus Comp</option>
-            <option>Other / General</option>
+            <option>Technical Support</option>
+            <option>Payment / Billing Issue</option>
+            <option>License Key Problem</option>
+            <option>Download Not Working</option>
+            <option>Refund Request</option>
+            <option>Feature Request</option>
+            <option>General Question</option>
           </select>
         </div>
-        <div class="form-field"><label>Message</label><textarea rows="5" placeholder="Describe your issue or question..." required style="resize:vertical;"></textarea></div>
+        <div class="form-field"><label>Message</label><textarea rows="5" placeholder="Describe your issue..." required style="resize:vertical;"></textarea></div>
         <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send Message</button>
       </form>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
 <section class="section">
   <div class="container">
-    <div class="section-head">
-      <span class="tag">FAQ</span>
-      <h2>Frequently Asked Questions</h2>
-    </div>
+    <div class="section-head"><span class="tag">FAQ</span><h2>Frequently Asked Questions</h2></div>
     <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-q">How do I install my plugin after purchase? <i class="fas fa-chevron-down"></i></button>
-        <div class="faq-a"><p>After checkout you'll receive a download link by email. Run the installer for your OS (Mac or Windows), then open your DAW, rescan plugins, and it will appear in your plugin list automatically.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">How many computers can I install on? <i class="fas fa-chevron-down"></i></button>
-        <div class="faq-a"><p>Each license allows installation on up to 3 computers simultaneously — for example, studio desktop + laptop + home studio. Need more? Contact support and we'll accommodate you.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Do you offer a free trial? <i class="fas fa-chevron-down"></i></button>
-        <div class="faq-a"><p>Yes! Several products have a 14-day fully functional trial. Look for the "Try Free" button on product pages. No credit card required to start.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">What is your refund policy? <i class="fas fa-chevron-down"></i></button>
-        <div class="faq-a"><p>We offer a 30-day full refund on all digital products. If you're not satisfied, email support@audiointelligence.com within 30 days of purchase for a complete refund — no questions asked.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Which DAWs are supported? <i class="fas fa-chevron-down"></i></button>
-        <div class="faq-a"><p>Our plugins come in VST3, AU, and AAX formats — compatible with Ableton Live, Logic Pro, Pro Tools, FL Studio, Cubase, Studio One, Reaper, Bitwig, and most other major DAWs.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Do I get free updates? <i class="fas fa-chevron-down"></i></button>
-        <div class="faq-a"><p>Yes — all updates including major version upgrades are free for life. We believe in rewarding our customers. Subscribe to the update newsletter to be notified when new versions drop.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Is an internet connection required to use the plugins? <i class="fas fa-chevron-down"></i></button>
-        <div class="faq-a"><p>Initial activation requires internet, but after that you can use the plugin fully offline. Offline activation is also supported for air-gapped studios — contact support for instructions.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Do you ship hardware internationally? <i class="fas fa-chevron-down"></i></button>
-        <div class="faq-a"><p>Yes, we ship hardware to over 60 countries worldwide. Shipping costs and delivery estimates are shown at checkout. We use DHL Express for all international orders.</p></div>
-      </div>
+      <div class="faq-item"><button class="faq-q">How do I install my plugin after purchase? <i class="fas fa-chevron-down"></i></button><div class="faq-a"><p>After checkout you'll receive a download link by email. Run the installer for your OS (Mac or Windows), then open your DAW, rescan plugins, and it will appear automatically.</p></div></div>
+      <div class="faq-item"><button class="faq-q">What payment methods do you accept? <i class="fas fa-chevron-down"></i></button><div class="faq-a"><p>We accept Visa, Mastercard, American Express, Discover, PayPal, Apple Pay, and major cryptocurrencies (BTC, ETH, USDC, SOL). All payments are secured with 256-bit SSL encryption.</p></div></div>
+      <div class="faq-item"><button class="faq-q">How many computers can I install on? <i class="fas fa-chevron-down"></i></button><div class="faq-a"><p>Each license allows installation on up to 3 computers simultaneously. Need more? Contact support and we'll accommodate you.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Do you offer a free trial? <i class="fas fa-chevron-down"></i></button><div class="faq-a"><p>Yes! Several products have a 14-day fully functional trial. Look for the "Try Free" button on product pages. No credit card required.</p></div></div>
+      <div class="faq-item"><button class="faq-q">What is your refund policy? <i class="fas fa-chevron-down"></i></button><div class="faq-a"><p>We offer a 30-day full refund on all digital products. Email support@audiointelligence.com within 30 days of purchase for a complete refund — no questions asked.</p></div></div>
+      <div class="faq-item"><button class="faq-q">I paid but didn't receive my license key. What do I do? <i class="fas fa-chevron-down"></i></button><div class="faq-a"><p>License keys are emailed instantly after payment. Check your spam folder first. If still not received after 10 minutes, email billing@audiointelligence.com with your order ID and we'll resend immediately.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Which DAWs are supported? <i class="fas fa-chevron-down"></i></button><div class="faq-a"><p>VST3, AU, and AAX formats — compatible with Ableton Live, Logic Pro, Pro Tools, FL Studio, Cubase, Studio One, Reaper, Bitwig and most other major DAWs.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Do I get free updates? <i class="fas fa-chevron-down"></i></button><div class="faq-a"><p>Yes — all updates including major version upgrades are free for life. Subscribe to our update newsletter to be notified when new versions drop.</p></div></div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand"><a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Audio Intelligence" class="logo-img"/></a><p>Professional audio plugins and analog hardware for the modern studio.</p><div class="social-row"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-facebook"></i></a></div></div>
-      <div class="footer-col"><h4>Products</h4><ul><li><a href="products.html?cat=plugins">VST Plugins</a></li><li><a href="products.html?cat=hardware">Analog Hardware</a></li><li><a href="products.html?cat=bundles">Bundles</a></li><li><a href="products.html?cat=free">Free Downloads</a></li></ul></div>
-      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="updates.html">Updates</a></li><li><a href="support.html">Support</a></li></ul></div>
-      <div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">EULA</a></li><li><a href="#">Refund Policy</a></li></ul></div>
-    </div>
-    <div class="footer-bottom"><p>© 2025 Audio Intelligence. All rights reserved.</p></div>
-  </div>
-</footer>
+<footer class="footer"><div class="container"><div class="footer-grid">
+  <div class="footer-brand"><a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Audio Intelligence" class="logo-img"/></a><p>Professional audio plugins and analog hardware for the modern studio.</p><div class="social-row"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-facebook"></i></a></div></div>
+  <div class="footer-col"><h4>Products</h4><ul><li><a href="products.html?cat=plugins">VST Plugins</a></li><li><a href="products.html?cat=hardware">Analog Hardware</a></li><li><a href="products.html?cat=bundles">Bundles</a></li><li><a href="products.html?cat=free">Free Downloads</a></li></ul></div>
+  <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="updates.html">Updates</a></li><li><a href="support.html">Support</a></li></ul></div>
+  <div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">EULA</a></li><li><a href="#">Refund Policy</a></li></ul></div>
+</div><div class="footer-bottom"><p>© 2025 Audio Intelligence. All rights reserved.</p></div></div></footer>
 <script src="js/main.js"></script>
 </body>
 </html>
