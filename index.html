@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Audio Intelligence – Plugins & Analog Hardware</title>
-  <meta name="description" content="Professional audio plugins and analog hardware by Audio Intelligence. Studio-grade tools for music producers and audio engineers."/>
+  <title>Audio Intelligence — Professional Plugins & Analog Hardware</title>
+  <meta name="description" content="Studio-grade audio plugins and analog hardware for music producers and mixing engineers."/>
   <link rel="stylesheet" href="css/style.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
 
-<!-- NAVIGATION -->
+<!-- NAVBAR -->
 <nav class="navbar" id="navbar">
-  <div class="nav-container">
-    <a href="index.html" class="nav-logo">
-      <span class="logo-icon"><i class="fas fa-wave-square"></i></span>
-      <span class="logo-text">Audio<strong>Intelligence</strong></span>
-    </a>
+  <div class="nav-wrap">
+    <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Audio Intelligence" class="logo-img"/></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="products.html">Products</a></li>
@@ -27,192 +24,158 @@
       <li><a href="support.html">Support</a></li>
     </ul>
     <div class="nav-actions">
-      <button class="btn-cart" id="cartBtn"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cartCount">0</span></button>
-      <a href="products.html" class="btn-primary">Shop Now</a>
+      <button class="cart-btn" id="cartBtn"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cartBadge">0</span></button>
+      <a href="products.html" class="btn btn-primary">Shop Now</a>
       <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
     </div>
   </div>
 </nav>
 
-
 <!-- CART DRAWER -->
-<div class="cart-overlay" id="cartOverlay"></div>
-<div class="cart-drawer" id="cartDrawer">
-  <div class="cart-header">
-    <h3>Your Cart</h3>
-    <button class="cart-close" id="cartClose"><i class="fas fa-times"></i></button>
+<div class="overlay" id="overlay"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h3><i class="fas fa-shopping-bag" style="color:var(--accent);margin-right:8px;"></i>Your Cart</h3>
+    <button class="drawer-close" id="drawerClose"><i class="fas fa-times"></i></button>
   </div>
-  <div class="cart-items" id="cartItems">
+  <div class="drawer-items" id="cartItems">
     <div class="cart-empty"><i class="fas fa-music"></i><p>Your cart is empty</p></div>
   </div>
-  <div class="cart-footer" id="cartFooter" style="display:none">
-    <div class="cart-total">Total: <strong id="cartTotal">$0.00</strong></div>
-    <button class="btn-primary full-width">Checkout</button>
+  <div class="drawer-foot" id="cartFoot" style="display:none">
+    <div class="cart-subtotal"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
+    <div class="cart-total-row"><span>Total</span><strong id="cartTotal">$0.00</strong></div>
+    <div class="pay-methods-mini" id="payLogoStrip" style="display:none">
+      <span style="font-size:.7rem;color:var(--text-3);font-weight:600;">Pay with:</span>
+      <span style="background:#1a1f71;color:#fff;padding:2px 7px;border-radius:3px;font-size:.66rem;font-weight:800;">VISA</span>
+      <span style="background:#eb001b;color:#fff;padding:2px 7px;border-radius:3px;font-size:.66rem;font-weight:800;">MC</span>
+      <span style="background:#003087;color:#fff;padding:2px 7px;border-radius:3px;font-size:.66rem;font-weight:800;">PayPal</span>
+      <span style="background:#000;color:#fff;padding:2px 7px;border-radius:3px;font-size:.66rem;font-weight:800;">Apple Pay</span>
+    </div>
+    <a href="checkout.html" class="btn btn-primary fw" style="margin-top:4px;">
+      <i class="fas fa-lock"></i> Secure Checkout
+    </a>
+    <p style="font-size:.72rem;color:var(--text-3);text-align:center;margin-top:8px;">
+      <i class="fas fa-shield-alt" style="color:var(--green);"></i> 256-bit SSL · 30-day refund guaranteed
+    </p>
   </div>
 </div>
 
-<!-- HERO SECTION -->
+<!-- HERO -->
 <section class="hero">
-  <div class="hero-bg">
-    <div class="waveform-bg"></div>
-    <div class="grid-overlay"></div>
-  </div>
+  <div class="hero-bg"><div class="hero-bg-grad"></div><div class="hero-bg-grid"></div></div>
   <div class="hero-content">
-    <div class="hero-badge"><i class="fas fa-bolt"></i> New Release — Transformer EQ Pro</div>
-    <h1 class="hero-title">Studio-Grade<br/><span class="gradient-text">Audio Intelligence</span></h1>
-    <p class="hero-subtitle">Professional plugins and analog hardware crafted for music producers, mixing engineers, and sound designers who demand the best.</p>
+    <div class="hero-badge"><i class="fas fa-bolt"></i> New — Transformer EQ Pro v1.5 Released</div>
+    <h1 class="hero-title">Studio-Grade Sound<br/><span class="grad">Starts Here</span></h1>
+    <p class="hero-sub">Professional plugins and analog hardware built for music producers, mixing engineers, and sound designers who refuse to compromise.</p>
     <div class="hero-cta">
-      <a href="products.html" class="btn-primary btn-large">Explore Products</a>
-      <a href="#featured" class="btn-ghost btn-large"><i class="fas fa-play"></i> Watch Demo</a>
+      <a href="products.html" class="btn btn-primary lg">Explore Products</a>
+      <a href="about.html" class="btn btn-ghost lg"><i class="fas fa-play-circle"></i> Our Story</a>
     </div>
     <div class="hero-stats">
-      <div class="stat"><span class="stat-num">50+</span><span class="stat-label">Plugins</span></div>
-      <div class="stat"><span class="stat-num">12K+</span><span class="stat-label">Customers</span></div>
-      <div class="stat"><span class="stat-num">4.9★</span><span class="stat-label">Rating</span></div>
-      <div class="stat"><span class="stat-num">Free</span><span class="stat-label">Updates</span></div>
+      <div class="stat"><span class="stat-n">50+</span><span class="stat-l">Plugins</span></div>
+      <div class="stat"><span class="stat-n">12K+</span><span class="stat-l">Customers</span></div>
+      <div class="stat"><span class="stat-n">4.9★</span><span class="stat-l">Rating</span></div>
+      <div class="stat"><span class="stat-n">Free</span><span class="stat-l">Updates</span></div>
     </div>
   </div>
   <div class="hero-visual">
-    <div class="plugin-mockup">
-      <div class="plugin-ui">
-        <div class="plugin-header"><span class="plugin-name">AI Compressor X</span><span class="plugin-tag">NEW</span></div>
-        <div class="plugin-knobs">
-          <div class="knob-group"><div class="knob k1"></div><span>Threshold</span></div>
-          <div class="knob-group"><div class="knob k2"></div><span>Ratio</span></div>
-          <div class="knob-group"><div class="knob k3"></div><span>Attack</span></div>
-          <div class="knob-group"><div class="knob k4"></div><span>Release</span></div>
-        </div>
-        <div class="plugin-meter">
-          <div class="meter-bar"><div class="meter-fill" id="meterFill"></div></div>
-          <div class="meter-labels"><span>-∞</span><span>-24</span><span>-12</span><span>-6</span><span>0</span></div>
-        </div>
-        <div class="plugin-eq-display">
-          <svg viewBox="0 0 300 80" class="eq-svg"><polyline id="eqLine" points="0,60 50,55 100,35 150,40 200,30 250,45 300,50" fill="none" stroke="#f5a623" stroke-width="2"/><linearGradient id="eqGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f5a623" stop-opacity="0.3"/><stop offset="100%" stop-color="#f5a623" stop-opacity="0"/></linearGradient><polygon id="eqFill" points="0,60 50,55 100,35 150,40 200,30 250,45 300,50 300,80 0,80" fill="url(#eqGrad)"/></svg>
-        </div>
+    <div class="mockup">
+      <div class="mock-head"><span class="mock-name">AI Compressor X</span><span class="mock-tag">NEW</span></div>
+      <div class="mock-knobs">
+        <div class="knob-g"><div class="knob k1"></div><span>Threshold</span></div>
+        <div class="knob-g"><div class="knob k2"></div><span>Ratio</span></div>
+        <div class="knob-g"><div class="knob k3"></div><span>Attack</span></div>
+        <div class="knob-g"><div class="knob k4"></div><span>Release</span></div>
+      </div>
+      <div class="mock-meter">
+        <div class="meter-bar"><div class="meter-fill"></div></div>
+        <div class="meter-lbls"><span>-∞</span><span>-24</span><span>-12</span><span>-6</span><span>0</span></div>
+      </div>
+      <div class="mock-eq">
+        <svg viewBox="0 0 300 72">
+          <defs><linearGradient id="eg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#9f6cf5" stop-opacity="0.4"/><stop offset="100%" stop-color="#9f6cf5" stop-opacity="0"/></linearGradient></defs>
+          <polygon points="0,58 50,52 100,33 150,38 200,28 250,43 300,48 300,72 0,72" fill="url(#eg)"/>
+          <polyline points="0,58 50,52 100,33 150,38 200,28 250,43 300,48" fill="none" stroke="#9f6cf5" stroke-width="2"/>
+        </svg>
       </div>
     </div>
   </div>
 </section>
 
-
-<!-- BRANDS / TRUST BAR -->
-<section class="trust-bar">
+<!-- TRUST BAR -->
+<div class="trust">
   <div class="container">
-    <p class="trust-label">Trusted by professionals at</p>
+    <p class="trust-lbl">Trusted by professionals at</p>
     <div class="trust-logos">
       <span>Abbey Road Studios</span><span>Sony Music</span><span>Universal Audio</span><span>Splice</span><span>Avid</span><span>Native Instruments</span>
     </div>
   </div>
-</section>
+</div>
 
 <!-- FEATURED PRODUCTS -->
 <section class="section" id="featured">
   <div class="container">
-    <div class="section-header">
-      <span class="section-tag">Featured</span>
+    <div class="section-head">
+      <span class="tag">Featured</span>
       <h2>Best-Selling Products</h2>
       <p>Handcrafted tools that define the modern studio sound</p>
     </div>
-    <div class="products-grid" id="featuredGrid">
-      <!-- Populated by JS -->
-    </div>
-    <div class="section-cta"><a href="products.html" class="btn-ghost">View All Products <i class="fas fa-arrow-right"></i></a></div>
+    <div class="grid-4" id="featuredGrid"></div>
+    <div class="sec-cta"><a href="products.html" class="btn btn-ghost">View All Products <i class="fas fa-arrow-right"></i></a></div>
   </div>
 </section>
 
 <!-- CATEGORIES -->
-<section class="section section-dark">
+<section class="section section-alt">
   <div class="container">
-    <div class="section-header">
-      <span class="section-tag">Browse</span>
-      <h2>Product Categories</h2>
-    </div>
-    <div class="categories-grid">
-      <a href="products.html?cat=plugins" class="category-card">
-        <div class="cat-icon"><i class="fas fa-plug"></i></div>
-        <h3>VST / AU Plugins</h3>
-        <p>Compressors, EQs, Reverbs, Synthesizers & more</p>
-        <span class="cat-count">32 Products</span>
-      </a>
-      <a href="products.html?cat=hardware" class="category-card">
-        <div class="cat-icon"><i class="fas fa-microchip"></i></div>
-        <h3>Analog Hardware</h3>
-        <p>Preamps, Compressors, Channel Strips</p>
-        <span class="cat-count">18 Products</span>
-      </a>
-      <a href="products.html?cat=bundles" class="category-card">
-        <div class="cat-icon"><i class="fas fa-layer-group"></i></div>
-        <h3>Bundles</h3>
-        <p>Save big with curated plugin bundles</p>
-        <span class="cat-count">8 Bundles</span>
-      </a>
-      <a href="products.html?cat=free" class="category-card">
-        <div class="cat-icon"><i class="fas fa-gift"></i></div>
-        <h3>Free Downloads</h3>
-        <p>Free plugins to get you started</p>
-        <span class="cat-count">5 Free</span>
-      </a>
+    <div class="section-head"><span class="tag">Browse</span><h2>Product Categories</h2></div>
+    <div class="grid-cats">
+      <a href="products.html?cat=plugins" class="cat-card fade-up"><div class="cat-icon"><i class="fas fa-plug"></i></div><h3>VST / AU Plugins</h3><p>Compressors, EQs, Reverbs, Synthesizers &amp; more</p><span class="cat-count">32 Products</span></a>
+      <a href="products.html?cat=hardware" class="cat-card fade-up"><div class="cat-icon"><i class="fas fa-microchip"></i></div><h3>Analog Hardware</h3><p>Preamps, Compressors, Channel Strips</p><span class="cat-count">18 Products</span></a>
+      <a href="products.html?cat=bundles" class="cat-card fade-up"><div class="cat-icon"><i class="fas fa-layer-group"></i></div><h3>Bundles</h3><p>Save big with curated plugin bundles</p><span class="cat-count">8 Bundles</span></a>
+      <a href="products.html?cat=free" class="cat-card fade-up"><div class="cat-icon"><i class="fas fa-gift"></i></div><h3>Free Downloads</h3><p>Free plugins to get you started, no strings</p><span class="cat-count">5 Free</span></a>
     </div>
   </div>
 </section>
 
-
-<!-- WHY CHOOSE US -->
+<!-- WHY US -->
 <section class="section">
   <div class="container">
-    <div class="section-header">
-      <span class="section-tag">Why Us</span>
-      <h2>Built for Professionals</h2>
-    </div>
-    <div class="features-grid">
-      <div class="feature-card"><div class="feat-icon"><i class="fas fa-infinity"></i></div><h4>Lifetime Updates</h4><p>Buy once, get all future updates free. We constantly improve our products.</p></div>
-      <div class="feature-card"><div class="feat-icon"><i class="fas fa-shield-alt"></i></div><h4>Flexible Licensing</h4><p>Install on up to 3 machines. Online & offline activation supported.</p></div>
-      <div class="feature-card"><div class="feat-icon"><i class="fas fa-headphones-alt"></i></div><h4>Expert Support</h4><p>Real humans answer your questions. Average response time under 4 hours.</p></div>
-      <div class="feature-card"><div class="feat-icon"><i class="fas fa-desktop"></i></div><h4>Cross-Platform</h4><p>VST3, AU, AAX. Works with Pro Tools, Logic, Ableton, FL Studio & more.</p></div>
-      <div class="feature-card"><div class="feat-icon"><i class="fas fa-undo"></i></div><h4>30-Day Refund</h4><p>Not happy? Get a full refund within 30 days, no questions asked.</p></div>
-      <div class="feature-card"><div class="feat-icon"><i class="fas fa-star"></i></div><h4>Award-Winning</h4><p>Recognized by MusicTech, Sound on Sound, and Computer Music magazine.</p></div>
+    <div class="section-head"><span class="tag">Why Us</span><h2>Built for Professionals</h2><p>Everything you need. Nothing you don't.</p></div>
+    <div class="grid-feats">
+      <div class="feat-card fade-up"><div class="feat-icon"><i class="fas fa-infinity"></i></div><h4>Lifetime Free Updates</h4><p>Buy once, keep forever. Every version update is free — no subscriptions, ever.</p></div>
+      <div class="feat-card fade-up"><div class="feat-icon"><i class="fas fa-shield-alt"></i></div><h4>Flexible Licensing</h4><p>Install on up to 3 machines. Full online and offline activation supported.</p></div>
+      <div class="feat-card fade-up"><div class="feat-icon"><i class="fas fa-headphones-alt"></i></div><h4>Expert Human Support</h4><p>Real engineers answer your questions. Average response time under 4 hours.</p></div>
+      <div class="feat-card fade-up"><div class="feat-icon"><i class="fas fa-desktop"></i></div><h4>All Major DAWs</h4><p>VST3, AU, AAX. Works with Pro Tools, Logic, Ableton, FL Studio and more.</p></div>
+      <div class="feat-card fade-up"><div class="feat-icon"><i class="fas fa-undo"></i></div><h4>30-Day Money Back</h4><p>Not satisfied? Full refund within 30 days. No questions asked, guaranteed.</p></div>
+      <div class="feat-card fade-up"><div class="feat-icon"><i class="fas fa-lock"></i></div><h4>Secure Checkout</h4><p>Card, PayPal, Apple Pay &amp; Crypto — all transactions secured with 256-bit SSL.</p></div>
     </div>
   </div>
 </section>
 
 <!-- TESTIMONIALS -->
-<section class="section section-dark">
+<section class="section section-alt">
   <div class="container">
-    <div class="section-header">
-      <span class="section-tag">Reviews</span>
-      <h2>What Engineers Say</h2>
-    </div>
-    <div class="testimonials-grid">
-      <div class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <p>"The AI Compressor X changed my entire workflow. The harmonic saturation is unlike anything I've used before."</p>
-        <div class="testimonial-author"><div class="author-avatar">JM</div><div><strong>Jake Morrison</strong><span>Mixing Engineer, LA</span></div></div>
-      </div>
-      <div class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <p>"Finally hardware-grade warmth in a plugin. The Transformer EQ sounds better than gear costing 10x the price."</p>
-        <div class="testimonial-author"><div class="author-avatar">SR</div><div><strong>Sarah Reeves</strong><span>Producer, Nashville</span></div></div>
-      </div>
-      <div class="testimonial-card">
-        <div class="stars">★★★★★</div>
-        <p>"Customer support is incredible. They helped me get set up within minutes. Amazing product, even better company."</p>
-        <div class="testimonial-author"><div class="author-avatar">DK</div><div><strong>David Kim</strong><span>Sound Designer, NYC</span></div></div>
-      </div>
+    <div class="section-head"><span class="tag">Reviews</span><h2>What Engineers Say</h2></div>
+    <div class="grid-testi">
+      <div class="testi-card fade-up"><div class="stars">★★★★★</div><p>"The AI Compressor X completely changed my workflow. The harmonic saturation is unlike anything I've used before."</p><div class="testi-author"><div class="t-av">JM</div><div><strong>Jake Morrison</strong><span>Mixing Engineer, LA</span></div></div></div>
+      <div class="testi-card fade-up"><div class="stars">★★★★★</div><p>"Hardware-grade warmth in a plugin. The Transformer EQ sounds better than gear costing 10 times the price."</p><div class="testi-author"><div class="t-av">SR</div><div><strong>Sarah Reeves</strong><span>Producer, Nashville</span></div></div></div>
+      <div class="testi-card fade-up"><div class="stars">★★★★★</div><p>"Incredible support team. Checkout was super smooth — paid with Apple Pay and had my license in 2 minutes!"</p><div class="testi-author"><div class="t-av">DK</div><div><strong>David Kim</strong><span>Sound Designer, NYC</span></div></div></div>
     </div>
   </div>
 </section>
 
 <!-- NEWSLETTER -->
-<section class="section newsletter-section">
+<section class="section nl-section">
   <div class="container">
-    <div class="newsletter-box">
-      <div class="newsletter-content">
-        <h2>Get Free Plugins & Updates</h2>
-        <p>Join 12,000+ producers. Get notified about new releases, free downloads, and exclusive deals.</p>
+    <div class="nl-box">
+      <div class="nl-content">
+        <h2>Get Free Plugins &amp; Updates</h2>
+        <p>Join 12,000+ producers. Be first for new releases, free tools, and exclusive deals.</p>
       </div>
-      <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+      <form class="nl-form" onsubmit="subscribeNewsletter(event)">
         <input type="email" placeholder="Your email address" required/>
-        <button type="submit" class="btn-primary">Subscribe Free</button>
+        <button type="submit" class="btn btn-primary">Subscribe Free</button>
       </form>
     </div>
   </div>
@@ -223,23 +186,22 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="nav-logo"><span class="logo-icon"><i class="fas fa-wave-square"></i></span><span class="logo-text">Audio<strong>Intelligence</strong></span></a>
-        <p>Professional audio plugins and analog hardware for the modern studio.</p>
-        <div class="social-links">
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-youtube"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Audio Intelligence" class="logo-img"/></a>
+        <p>Professional audio plugins and analog hardware crafted for the modern studio.</p>
+        <div class="social-row">
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
         </div>
       </div>
       <div class="footer-col"><h4>Products</h4><ul><li><a href="products.html?cat=plugins">VST Plugins</a></li><li><a href="products.html?cat=hardware">Analog Hardware</a></li><li><a href="products.html?cat=bundles">Bundles</a></li><li><a href="products.html?cat=free">Free Downloads</a></li></ul></div>
       <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="updates.html">Updates</a></li><li><a href="support.html">Support</a></li><li><a href="#">Affiliates</a></li></ul></div>
       <div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">EULA</a></li><li><a href="#">Refund Policy</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><p>© 2025 Audio Intelligence. All rights reserved. | VST® is a trademark of Steinberg Media Technologies GmbH</p></div>
+    <div class="footer-bottom"><p>© 2025 Audio Intelligence. All rights reserved. VST® is a trademark of Steinberg Media Technologies GmbH.</p></div>
   </div>
 </footer>
-
 <script src="js/main.js"></script>
 </body>
 </html>
