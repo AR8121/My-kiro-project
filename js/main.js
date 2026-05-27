@@ -1,202 +1,201 @@
-/* ===========================
+/* ==============================================
    AUDIO INTELLIGENCE — MAIN JS
-   =========================== */
+   ============================================== */
 
-// ---- Cart State ----
+/* ---- PRODUCTS DATA ---- */
+const PRODUCTS = [
+  { id:1, name:'AI Compressor X',     cat:'plugins',  price:149, badge:'NEW',  badgeClass:'new',  icon:'fa-compress-alt', desc:'Intelligent VCA compressor with harmonic saturation and transient shaping for the modern mix.' , fmts:['VST3','AU','AAX'] },
+  { id:2, name:'Transformer EQ Pro',  cat:'plugins',  price:129, badge:'HOT',  badgeClass:'hot',  icon:'fa-sliders-h',    desc:'Analog-modeled equalizer with iron-core transformer saturation for warmth and character.',       fmts:['VST3','AU','AAX'] },
+  { id:3, name:'Space Reverb AI',     cat:'plugins',  price:99,  badge:null,   badgeClass:'',     icon:'fa-water',        desc:'Algorithmic reverb powered by neural room modeling. From chambers to infinite plates.',           fmts:['VST3','AU'] },
+  { id:4, name:'AI Channel Strip',    cat:'bundles',  price:249, origPrice:377, badge:'SALE', badgeClass:'sale', icon:'fa-layer-group', desc:'Complete channel strip: EQ + Compressor + Saturator. Save $128 vs buying separately.',        fmts:['VST3','AU','AAX'] },
+  { id:5, name:'Analog Preamp 500',   cat:'hardware', price:499, badge:null,   badgeClass:'',     icon:'fa-microchip',    desc:'Class-A 500-series preamp. Transformer-balanced I/O with silky top end.',                        fmts:['500-Series'] },
+  { id:6, name:'Tape Saturator',      cat:'plugins',  price:79,  badge:null,   badgeClass:'',     icon:'fa-circle',       desc:'Vintage tape emulation with wow, flutter and bias controls. Brings life to sterile recordings.',   fmts:['VST3','AU','AAX'] },
+  { id:7, name:'Analog Bus Comp',     cat:'hardware', price:899, badge:'NEW',  badgeClass:'new',  icon:'fa-microchip',    desc:'Stereo VCA bus compressor. Rack-mount studio grade. The glue your mix has been missing.',          fmts:['Rack 2U'] },
+  { id:8, name:'Free Limiter X',      cat:'free',     price:0,   badge:'FREE', badgeClass:'free', icon:'fa-shield-alt',   desc:'Transparent brick-wall limiter. Absolutely free, forever. No catch.',                             fmts:['VST3','AU'] },
+];
+
+/* ---- CART STATE ---- */
 let cart = JSON.parse(localStorage.getItem('ai_cart') || '[]');
 
 function saveCart() { localStorage.setItem('ai_cart', JSON.stringify(cart)); }
 
-function updateCartUI() {
-  const count = cart.reduce((a, i) => a + i.qty, 0);
-  const total = cart.reduce((a, i) => a + i.price * i.qty, 0);
-  document.querySelectorAll('#cartCount').forEach(el => el.textContent = count);
-  const cartItemsEl = document.getElementById('cartItems');
-  const cartFooter = document.getElementById('cartFooter');
-  const cartTotalEl = document.getElementById('cartTotal');
-  if (!cartItemsEl) return;
+function addToCart(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+  const ex = cart.find(x => x.id === id);
+  if (ex) ex.qty++;
+  else cart.push({ id: p.id, name: p.name, price: p.price, qty: 1 });
+  saveCart();
+  renderCart();
+  openCart();
+  toast(`<i class="fas fa-check-circle"></i> <strong>${p.name}</strong> added to cart`);
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(x => x.id !== id);
+  saveCart();
+  renderCart();
+}
+
+function renderCart() {
+  const items = document.getElementById('cartItems');
+  const foot  = document.getElementById('cartFoot');
+  const badge = document.getElementById('cartBadge');
+  if (!items) return;
+
+  const count = cart.reduce((a, x) => a + x.qty, 0);
+  const total = cart.reduce((a, x) => a + x.price * x.qty, 0);
+
+  if (badge) badge.textContent = count;
+
   if (cart.length === 0) {
-    cartItemsEl.innerHTML = '<div class="cart-empty"><i class="fas fa-music"></i><p>Your cart is empty</p></div>';
-    if (cartFooter) cartFooter.style.display = 'none';
+    items.innerHTML = '<div class="cart-empty"><i class="fas fa-music"></i><p>Your cart is empty</p></div>';
+    if (foot) foot.style.display = 'none';
   } else {
-    cartItemsEl.innerHTML = cart.map((item, idx) => `
+    items.innerHTML = cart.map(x => `
       <div class="cart-item">
-        <div class="cart-item-info">
-          <div class="cart-item-name">${item.name}</div>
-          <div class="cart-item-price">$${item.price.toFixed(2)} × ${item.qty}</div>
+        <div class="ci-info">
+          <div class="ci-name">${x.name}</div>
+          <div class="ci-price">$${x.price.toFixed(2)} × ${x.qty}</div>
         </div>
-        <button class="cart-item-remove" onclick="removeFromCart(${idx})"><i class="fas fa-trash-alt"></i></button>
+        <button class="ci-del" onclick="removeFromCart(${x.id})"><i class="fas fa-trash-alt"></i></button>
       </div>`).join('');
-    if (cartFooter) { cartFooter.style.display = 'block'; }
-    if (cartTotalEl) cartTotalEl.textContent = '$' + total.toFixed(2);
+    if (foot) {
+      foot.style.display = 'block';
+      document.getElementById('cartTotal').textContent = '$' + total.toFixed(2);
+    }
   }
 }
 
-function addToCart(name, price) {
-  const existing = cart.find(i => i.name === name);
-  if (existing) { existing.qty++; }
-  else { cart.push({ name, price, qty: 1 }); }
-  saveCart(); updateCartUI();
-  showToast(`<i class="fas fa-check-circle"></i> "${name}" added to cart`);
-  openCart();
-}
-
-function removeFromCart(idx) { cart.splice(idx, 1); saveCart(); updateCartUI(); }
-
 function openCart() {
-  document.getElementById('cartDrawer')?.classList.add('open');
-  document.getElementById('cartOverlay')?.classList.add('active');
+  document.getElementById('drawer')?.classList.add('open');
+  document.getElementById('overlay')?.classList.add('on');
   document.body.style.overflow = 'hidden';
 }
 function closeCart() {
-  document.getElementById('cartDrawer')?.classList.remove('open');
-  document.getElementById('cartOverlay')?.classList.remove('active');
+  document.getElementById('drawer')?.classList.remove('open');
+  document.getElementById('overlay')?.classList.remove('on');
   document.body.style.overflow = '';
 }
 
-// ---- Toast Notification ----
-function showToast(msg) {
-  let toast = document.getElementById('globalToast');
-  if (!toast) { toast = document.createElement('div'); toast.id = 'globalToast'; toast.className = 'toast'; document.body.appendChild(toast); }
-  toast.innerHTML = msg; toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 3000);
+/* ---- TOAST ---- */
+function toast(msg) {
+  let t = document.getElementById('toast');
+  if (!t) { t = document.createElement('div'); t.id = 'toast'; t.className = 'toast'; document.body.appendChild(t); }
+  t.innerHTML = msg;
+  t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove('show'), 3200);
 }
 
-// ---- Navbar Scroll ----
+/* ---- NAVBAR ---- */
 function initNavbar() {
-  const navbar = document.getElementById('navbar');
-  if (!navbar) return;
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
-  });
-  const toggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
-  if (toggle && navLinks) {
-    toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
-  }
+  const nb = document.getElementById('navbar');
+  if (nb) window.addEventListener('scroll', () => nb.classList.toggle('scrolled', scrollY > 40));
+  const tog = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  if (tog && links) tog.addEventListener('click', () => links.classList.toggle('open'));
 }
 
-// ---- Scroll Animations ----
-function initScrollAnimations() {
-  const els = document.querySelectorAll('.fade-up');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+/* ---- SCROLL ANIMATIONS ---- */
+function initAnim() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
   }, { threshold: 0.1 });
-  els.forEach(el => observer.observe(el));
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 }
 
-// ---- FAQ Accordion ----
+/* ---- FAQ ---- */
 function initFAQ() {
-  document.querySelectorAll('.faq-question').forEach(btn => {
+  document.querySelectorAll('.faq-q').forEach(btn => {
     btn.addEventListener('click', () => {
-      const answer = btn.nextElementSibling;
-      const isOpen = btn.classList.contains('open');
-      document.querySelectorAll('.faq-question.open').forEach(b => {
-        b.classList.remove('open');
-        b.nextElementSibling.classList.remove('open');
-      });
-      if (!isOpen) { btn.classList.add('open'); answer.classList.add('open'); }
+      const ans = btn.nextElementSibling;
+      const open = btn.classList.contains('open');
+      document.querySelectorAll('.faq-q.open').forEach(b => { b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
+      if (!open) { btn.classList.add('open'); ans.classList.add('open'); }
     });
   });
 }
 
-// ---- Newsletter ----
-function subscribeNewsletter(e) {
-  e.preventDefault();
-  showToast('<i class="fas fa-envelope"></i> You\'re subscribed! Check your email.');
-  e.target.reset();
-}
-
-// ---- Filter Buttons ----
+/* ---- PRODUCT FILTERS ---- */
 function initFilters() {
-  document.querySelectorAll('.filter-btn').forEach(btn => {
+  document.querySelectorAll('.fbtn').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      document.querySelectorAll('.product-card').forEach(card => {
-        if (filter === 'all' || card.dataset.category === filter) {
-          card.style.display = '';
-        } else {
-          card.style.display = 'none';
-        }
+      document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      const f = btn.dataset.f;
+      document.querySelectorAll('.card').forEach(c => {
+        c.style.display = (f === 'all' || c.dataset.cat === f) ? '' : 'none';
       });
     });
   });
 }
 
-
-// ---- Products Data ----
-const products = [
-  { id: 1, name: 'AI Compressor X', category: 'plugins', price: 149, badge: 'NEW', badgeType: 'new', icon: 'fa-compress-alt', desc: 'Intelligent VCA compressor with harmonic saturation and transient shaping.', formats: ['VST3','AU','AAX'] },
-  { id: 2, name: 'Transformer EQ Pro', category: 'plugins', price: 129, badge: 'POPULAR', badgeType: '', icon: 'fa-sliders-h', desc: 'Analog-modeled equalizer with transformer iron saturation.', formats: ['VST3','AU','AAX'] },
-  { id: 3, name: 'Space Reverb AI', category: 'plugins', price: 99, badge: null, icon: 'fa-water', desc: 'Algorithmic reverb with AI-powered room modeling.', formats: ['VST3','AU'] },
-  { id: 4, name: 'AI Channel Strip', category: 'bundles', price: 249, originalPrice: 377, badge: 'SALE', badgeType: 'sale', icon: 'fa-layer-group', desc: 'Complete channel strip bundle: EQ + Compressor + Saturator.', formats: ['VST3','AU','AAX'] },
-  { id: 5, name: 'Analog Preamp 500', category: 'hardware', price: 499, badge: null, icon: 'fa-microchip', desc: '500-series class-A preamp with transformer balanced I/O.', formats: ['500-Series'] },
-  { id: 6, name: 'Tape Saturator', category: 'plugins', price: 79, badge: null, icon: 'fa-circle', desc: 'Vintage tape machine emulation with wow, flutter, and harmonic drive.', formats: ['VST3','AU','AAX'] },
-  { id: 7, name: 'Free Limiter X', category: 'free', price: 0, badge: 'FREE', badgeType: 'new', icon: 'fa-shield-alt', desc: 'Transparent brickwall limiter. Absolutely free, forever.', formats: ['VST3','AU'] },
-  { id: 8, name: 'Analog Bus Comp', category: 'hardware', price: 899, badge: null, icon: 'fa-microchip', desc: 'Stereo VCA bus compressor. Rack-mounted, studio-grade.', formats: ['Rack'] },
-];
-
-function createProductCard(product, showFull = false) {
-  const priceHTML = product.price === 0
+/* ---- RENDER PRODUCT CARDS ---- */
+function cardHTML(p) {
+  const badge = p.badge ? `<span class="badge ${p.badgeClass}">${p.badge}</span>` : '';
+  const priceHTML = p.price === 0
     ? `<span class="price-free">FREE</span>`
-    : `<span class="price-current">$${product.price}</span>${product.originalPrice ? `<span class="price-original">$${product.originalPrice}</span>` : ''}`;
-  const badgeHTML = product.badge ? `<div class="product-badge ${product.badgeType}">${product.badge}</div>` : '';
+    : `<span class="price-cur">$${p.price}</span>${p.origPrice ? `<span class="price-was">$${p.origPrice}</span>` : ''}`;
+  const btnLabel = p.price === 0 ? '<i class="fas fa-download"></i> Download' : '<i class="fas fa-cart-plus"></i> Add to Cart';
   return `
-    <div class="product-card fade-up" data-category="${product.category}">
-      <div class="product-image">
-        <i class="fas ${product.icon} product-image-icon"></i>
-        ${badgeHTML}
-      </div>
-      <div class="product-body">
-        <div class="product-category">${product.category}</div>
-        <div class="product-name">${product.name}</div>
-        <div class="product-desc">${product.desc}</div>
-        <div class="product-formats">${product.formats.map(f => `<span class="format-tag">${f}</span>`).join('')}</div>
-        <div class="product-footer">
-          <div class="product-price">${priceHTML}</div>
-          <button class="btn-add-cart" onclick="addToCart('${product.name}', ${product.price})">
-            <i class="fas fa-${product.price === 0 ? 'download' : 'cart-plus'}"></i>
-            ${product.price === 0 ? 'Download' : 'Add to Cart'}
-          </button>
+    <div class="card fade-up" data-cat="${p.cat}">
+      <div class="card-img"><i class="fas ${p.icon}"></i>${badge}</div>
+      <div class="card-body">
+        <div class="card-cat">${p.cat}</div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-desc">${p.desc}</div>
+        <div class="card-fmts">${p.fmts.map(f => `<span class="fmt">${f}</span>`).join('')}</div>
+        <div class="card-foot">
+          <div>${priceHTML}</div>
+          <button class="btn-cart-add" onclick="addToCart(${p.id})">${btnLabel}</button>
         </div>
       </div>
     </div>`;
 }
 
-function renderFeaturedProducts() {
-  const grid = document.getElementById('featuredGrid');
-  if (!grid) return;
-  const featured = products.slice(0, 4);
-  grid.innerHTML = featured.map(p => createProductCard(p)).join('');
-  initScrollAnimations();
+function renderFeatured() {
+  const el = document.getElementById('featuredGrid');
+  if (!el) return;
+  el.innerHTML = PRODUCTS.slice(0, 4).map(cardHTML).join('');
+  initAnim();
 }
 
-function renderAllProducts() {
-  const grid = document.getElementById('allProductsGrid');
-  if (!grid) return;
-  grid.innerHTML = products.map(p => createProductCard(p, true)).join('');
-  initScrollAnimations();
-  // Check URL filter
-  const params = new URLSearchParams(window.location.search);
+function renderAll() {
+  const el = document.getElementById('allGrid');
+  if (!el) return;
+  el.innerHTML = PRODUCTS.map(cardHTML).join('');
+  initAnim();
+  const params = new URLSearchParams(location.search);
   const cat = params.get('cat');
   if (cat) {
-    const btn = document.querySelector(`.filter-btn[data-filter="${cat}"]`);
+    const btn = document.querySelector(`.fbtn[data-f="${cat}"]`);
     if (btn) btn.click();
   }
 }
 
-// ---- INIT ----
+/* ---- FORMS ---- */
+function subscribeNewsletter(e) {
+  e.preventDefault();
+  toast('<i class="fas fa-envelope"></i> Subscribed! Check your inbox.');
+  e.target.reset();
+}
+function submitContact(e) {
+  e.preventDefault();
+  toast('<i class="fas fa-check-circle"></i> Message sent! We\'ll reply within 4 hours.');
+  e.target.reset();
+}
+
+/* ---- INIT ---- */
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
-  initScrollAnimations();
+  initAnim();
   initFAQ();
   initFilters();
-  updateCartUI();
-  renderFeaturedProducts();
-  renderAllProducts();
+  renderCart();
+  renderFeatured();
+  renderAll();
   document.getElementById('cartBtn')?.addEventListener('click', openCart);
-  document.getElementById('cartClose')?.addEventListener('click', closeCart);
-  document.getElementById('cartOverlay')?.addEventListener('click', closeCart);
+  document.getElementById('drawerClose')?.addEventListener('click', closeCart);
+  document.getElementById('overlay')?.addEventListener('click', closeCart);
 });
