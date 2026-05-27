@@ -75,9 +75,13 @@ img{max-width:100%;display:block;}
 .navbar{position:fixed;top:0;width:100%;z-index:1000;background:rgba(248,247,252,.90);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:var(--t);}
 .navbar.scrolled{background:rgba(255,255,255,.97);box-shadow:var(--s1);}
 .nav-wrap{max-width:1280px;margin:0 auto;padding:0 24px;display:flex;align-items:center;height:70px;gap:28px;}
-.nav-logo{display:flex;align-items:center;text-decoration:none;}
-.logo-img{height:44px;width:auto;display:block;object-fit:contain;filter:brightness(0) saturate(100%);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-img{height:40px;width:auto;display:block;object-fit:contain;filter:brightness(0) saturate(100%);}
+.logo-name{font-family:var(--fdsp);font-size:1.15rem;font-weight:800;color:var(--navy);letter-spacing:-0.3px;line-height:1.15;}
+.logo-name span{display:block;font-size:.68rem;font-weight:500;color:var(--accent);text-transform:uppercase;letter-spacing:1.2px;margin-top:-1px;}
 .footer .logo-img{filter:brightness(0) invert(1);}
+.footer .logo-name{color:#fff;}
+.footer .logo-name span{color:var(--accent-light);}
 .nav-links{display:flex;gap:4px;flex:1;justify-content:center;}
 .nav-links a{padding:8px 14px;border-radius:6px;font-size:.91rem;font-weight:500;color:var(--text-2);transition:var(--t);}
 .nav-links a:hover{color:var(--text);background:var(--bg-raised);}
