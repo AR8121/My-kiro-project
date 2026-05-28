@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>OXIDE — Tape Saturation | Audio Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at 50% 30%, #1c1c1f 0%, #0a0a0b 80%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    .plugin {
+      width: min(96vw, 1200px);
+      filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.65));
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .plugin svg { display: block; width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+  <div class="plugin">
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 740" role="img" aria-label="OXIDE Tape Saturation Plugin UI">
+
+  <!-- ============================================================ -->
+  <!-- DEFS: gradients, patterns, filters                            -->
+  <!-- ============================================================ -->
+  <defs>
+    <!-- Backgrounds -->
+    <linearGradient id="bg-main" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#2b2b2e"/>
+      <stop offset="40%" stop-color="#1d1d1f"/>
+      <stop offset="100%" stop-color="#101012"/>
+    </linearGradient>
+
+    <linearGradient id="bg-nav" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#0c0c0d"/>
+      <stop offset="100%" stop-color="#181819"/>
+    </linearGradient>
+
+    <linearGradient id="panel-brushed" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#3a3a3d"/>
+      <stop offset="50%"  stop-color="#26262a"/>
+      <stop offset="100%" stop-color="#16161a"/>
+    </linearGradient>
+
+    <linearGradient id="panel-recessed" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#0a0a0b"/>
+      <stop offset="50%"  stop-color="#1a1a1d"/>
+      <stop offset="100%" stop-color="#202024"/>
+    </linearGradient>
+
+    <linearGradient id="footer-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#0d0d0e"/>
+      <stop offset="100%" stop-color="#050506"/>
+    </linearGradient>
+
+    <!-- Brushed metal hairline pattern (subtle horizontal grain) -->
+    <pattern id="brushed-lines" width="3" height="2" patternUnits="userSpaceOnUse">
+      <rect width="3" height="2" fill="transparent"/>
+      <line x1="0" y1="0" x2="3" y2="0" stroke="#ffffff" stroke-opacity="0.025"/>
+      <line x1="0" y1="1" x2="3" y2="1" stroke="#000000" stroke-opacity="0.15"/>
+    </pattern>
+
+    <!-- Knob gradients -->
+    <radialGradient id="knob-bezel" cx="0.35" cy="0.3" r="0.85">
+      <stop offset="0%"   stop-color="#65656a"/>
+      <stop offset="40%"  stop-color="#2e2e31"/>
+      <stop offset="100%" stop-color="#050506"/>
+    </radialGradient>
+
+    <linearGradient id="knob-face" x1="0.25" y1="0" x2="0.75" y2="1">
+      <stop offset="0%"   stop-color="#525257"/>
+      <stop offset="40%"  stop-color="#2c2c30"/>
+      <stop offset="100%" stop-color="#141416"/>
+    </linearGradient>
+
+    <radialGradient id="knob-cap" cx="0.4" cy="0.35" r="0.7">
+      <stop offset="0%"   stop-color="#6a6a6f"/>
+      <stop offset="60%"  stop-color="#26262a"/>
+      <stop offset="100%" stop-color="#0a0a0b"/>
+    </radialGradient>
+
+    <radialGradient id="knob-well" cx="0.5" cy="0.5" r="0.55">
+      <stop offset="0%"   stop-color="#0a0a0b"/>
+      <stop offset="100%" stop-color="#1a1a1d"/>
+    </radialGradient>
+
+    <!-- Amber LED gradients -->
+    <radialGradient id="led-amber" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%"   stop-color="#fff5d4"/>
+      <stop offset="20%"  stop-color="#ffc66b"/>
+      <stop offset="55%"  stop-color="#ff8a1f"/>
+      <stop offset="100%" stop-color="#5a2300"/>
+    </radialGradient>
+
+    <radialGradient id="led-amber-off" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%"   stop-color="#3a2410"/>
+      <stop offset="100%" stop-color="#0e0805"/>
+    </radialGradient>
+
+    <linearGradient id="led-strip-on" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#fff2cc"/>
+      <stop offset="50%"  stop-color="#ffaa44"/>
+      <stop offset="100%" stop-color="#cc5500"/>
+    </linearGradient>
+
+    <linearGradient id="led-strip-off" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#2a1a08"/>
+      <stop offset="100%" stop-color="#100a04"/>
+    </linearGradient>
+
+    <!-- Button face -->
+    <linearGradient id="btn-face" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#2c2c30"/>
+      <stop offset="50%" stop-color="#1c1c1f"/>
+      <stop offset="100%" stop-color="#0e0e10"/>
+    </linearGradient>
+
+    <linearGradient id="btn-face-hi" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#3a3a3d"/>
+      <stop offset="100%" stop-color="#1a1a1c"/>
+    </linearGradient>
+
+    <!-- VU Meter (warm parchment) -->
+    <linearGradient id="vu-face" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#fbe9a8"/>
+      <stop offset="50%"  stop-color="#f0c870"/>
+      <stop offset="100%" stop-color="#c89238"/>
+    </linearGradient>
+
+    <radialGradient id="vu-glass" cx="0.5" cy="0.2" r="0.7">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="60%"  stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.25"/>
+    </radialGradient>
+
+    <linearGradient id="vu-bezel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#050506"/>
+      <stop offset="50%"  stop-color="#1a1a1d"/>
+      <stop offset="100%" stop-color="#000"/>
+    </linearGradient>
+
+    <!-- ===== Filters ===== -->
+
+    <!-- Soft drop shadow for panels -->
+    <filter id="shadow-soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.55"/></feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Heavy knob shadow -->
+    <filter id="shadow-knob" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dx="0" dy="8"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.85"/></feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Inner shadow (for recessed wells) -->
+    <filter id="inset-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+      <feOffset dx="0" dy="4" result="offsetblur"/>
+      <feFlood flood-color="#000" flood-opacity="0.95"/>
+      <feComposite in2="offsetblur" operator="in"/>
+      <feComposite in2="SourceGraphic" operator="arithmetic" k2="-1" k3="1" result="innershadow"/>
+      <feMerge>
+        <feMergeNode in="SourceGraphic"/>
+        <feMergeNode in="innershadow"/>
+      </feMerge>
+    </filter>
+
+    <!-- Amber glow (medium) -->
+    <filter id="amber-glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="3" result="g1"/>
+      <feMerge>
+        <feMergeNode in="g1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Amber glow (strong, for LEDs) -->
+    <filter id="amber-glow-strong" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur stdDeviation="6" result="g1"/>
+      <feGaussianBlur stdDeviation="14" in="SourceGraphic" result="g2"/>
+      <feMerge>
+        <feMergeNode in="g2"/>
+        <feMergeNode in="g1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Tiny soft blur (for halos/shadows under knobs) -->
+    <filter id="blur-soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+
+  </defs>
+
+  <!-- ============================================================ -->
+  <!-- OUTER PLUGIN FRAME                                            -->
+  <!-- ============================================================ -->
+  <rect x="0" y="0" width="1200" height="740" fill="url(#bg-main)" rx="10"/>
+  <!-- Brushed grain over body -->
+  <rect x="0" y="0" width="1200" height="740" fill="url(#brushed-lines)" opacity="0.6" rx="10"/>
+  <!-- Top edge highlight -->
+  <rect x="1" y="1" width="1198" height="1" fill="#4a4a4d" opacity="0.45"/>
+  <!-- Bottom edge dark -->
+  <rect x="1" y="738" width="1198" height="1" fill="#000" opacity="0.6"/>
+
+  <!-- ============================================================ -->
+  <!-- 1. TOP NAVIGATION BAR                                         -->
+  <!-- ============================================================ -->
+  <g id="nav">
+    <rect x="0" y="0" width="1200" height="44" fill="url(#bg-nav)"/>
+    <line x1="0" y1="44" x2="1200" y2="44" stroke="#000" stroke-opacity="0.85"/>
+    <line x1="0" y1="45" x2="1200" y2="45" stroke="#3a3a3d" stroke-opacity="0.35"/>
+
+    <!-- Brand: heartbeat/waveform + AUDIO INTELLIGENCE -->
+    <g transform="translate(22, 22)">
+      <g stroke="#ff9a33" stroke-width="1.8" fill="none"
+         stroke-linejoin="round" stroke-linecap="round" filter="url(#amber-glow)">
+        <path d="M0 0 L5 0 L8 -8 L12 9 L16 -4 L19 4 L22 0 L30 0"/>
+      </g>
+      <text x="40" y="4" fill="#d2d2d4" font-size="11"
+            letter-spacing="2.6" font-weight="600">AUDIO INTELLIGENCE</text>
+    </g>
+
+    <!-- Center: Undo / Redo / Preset selector -->
+    <g transform="translate(420, 10)">
+      <!-- Undo -->
+      <g transform="translate(0,0)">
+        <rect width="24" height="24" rx="3" fill="#0d0d0e" stroke="#2a2a2c"/>
+        <path d="M9 12 L13 8 L13 10.5 Q17 10.5 17 14 L17 16 Q17 12.5 13 12.5 L13 16 Z"
+              fill="#a0a0a3"/>
+      </g>
+      <!-- Redo -->
+      <g transform="translate(28,0)">
+        <rect width="24" height="24" rx="3" fill="#0d0d0e" stroke="#2a2a2c"/>
+        <path d="M15 12 L11 8 L11 10.5 Q7 10.5 7 14 L7 16 Q7 12.5 11 12.5 L11 16 Z"
+              fill="#a0a0a3"/>
+      </g>
+
+      <!-- Preset selector -->
+      <g transform="translate(64, 0)">
+        <rect width="280" height="24" rx="3" fill="#0d0d0e" stroke="#2a2a2c"/>
+        <!-- left arrow -->
+        <path d="M14 12 L19 7 L19 17 Z" fill="#9a9a9d"/>
+        <!-- right arrow -->
+        <path d="M266 12 L261 7 L261 17 Z" fill="#9a9a9d"/>
+        <!-- preset text -->
+        <text x="140" y="16" text-anchor="middle" fill="#ffb87a"
+              font-size="11" letter-spacing="1.2" font-weight="500">A: Default Preset *</text>
+      </g>
+    </g>
+
+    <!-- Right: Action buttons -->
+    <g transform="translate(880, 10)">
+      <!-- A -> B -->
+      <g transform="translate(0,0)">
+        <rect width="60" height="24" rx="3" fill="#0d0d0e" stroke="#2a2a2c"/>
+        <text x="30" y="16" text-anchor="middle" fill="#c0c0c3"
+              font-size="11" letter-spacing="1.2" font-weight="600">A → B</text>
+      </g>
+      <!-- Setup A -->
+      <g transform="translate(68, 0)">
+        <rect width="78" height="24" rx="3" fill="#0d0d0e" stroke="#2a2a2c"/>
+        <text x="39" y="16" text-anchor="middle" fill="#c0c0c3"
+              font-size="11" letter-spacing="1.1" font-weight="500">SETUP A</text>
+      </g>
+      <!-- Save -->
+      <g transform="translate(154, 0)">
+        <rect width="60" height="24" rx="3" fill="#0d0d0e" stroke="#2a2a2c"/>
+        <text x="30" y="16" text-anchor="middle" fill="#c0c0c3"
+              font-size="11" letter-spacing="1.2" font-weight="500">SAVE</text>
+      </g>
+      <!-- Hamburger -->
+      <g transform="translate(222, 0)">
+        <rect width="24" height="24" rx="3" fill="#0d0d0e" stroke="#2a2a2c"/>
+        <line x1="6"  y1="9"  x2="18" y2="9"  stroke="#a0a0a3" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="6"  y1="12" x2="18" y2="12" stroke="#a0a0a3" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="6"  y1="15" x2="18" y2="15" stroke="#a0a0a3" stroke-width="1.6" stroke-linecap="round"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- 2. MAIN HEADER                                                -->
+  <!-- ============================================================ -->
+  <g id="header">
+    <!-- subtle separating bevel -->
+    <rect x="0" y="44" width="1200" height="96" fill="url(#bg-main)"/>
+    <rect x="0" y="44" width="1200" height="1" fill="#000" opacity="0.6"/>
+
+    <!-- Title block -->
+    <g transform="translate(600, 90)" text-anchor="middle">
+      <text font-size="38" font-weight="300" letter-spacing="22"
+            fill="#e6e6e8" filter="url(#amber-glow)">O X I D E</text>
+      <text y="26" font-size="10" letter-spacing="6"
+            fill="#ff9a33" filter="url(#amber-glow)" font-weight="500">
+        — TAPE  SATURATION —
+      </text>
+    </g>
+
+    <!-- Right: Oversampling, Bypass, Power -->
+    <g transform="translate(820, 70)">
+      <text x="0" y="0" fill="#7a7a7d" font-size="9"
+            letter-spacing="2" font-weight="500">OVERSAMPLING</text>
+      <g transform="translate(0, 12)" font-size="11" font-weight="600" letter-spacing="1.5">
+        <text x="0"  y="10" fill="#5a5a5d">OFF</text>
+        <text x="40" y="10" fill="#ffb04a" filter="url(#amber-glow)">2X</text>
+        <text x="78" y="10" fill="#5a5a5d">4X</text>
+      </g>
+
+      <!-- Bypass toggle -->
+      <g transform="translate(150, -2)">
+        <text x="0" y="0" fill="#7a7a7d" font-size="9"
+              letter-spacing="2" font-weight="500">BYPASS</text>
+        <g transform="translate(0, 8)">
+          <rect x="0" y="0" width="56" height="22" rx="11"
+                fill="#0a0a0b" stroke="#2a2a2c"/>
+          <!-- knob in OFF position (left) -->
+          <circle cx="13" cy="11" r="8" fill="url(#knob-cap)"/>
+          <circle cx="11.5" cy="9" r="2.4" fill="#fff" opacity="0.18"/>
+        </g>
+      </g>
+
+      <!-- Power LED -->
+      <g transform="translate(248, -2)">
+        <text x="0" y="0" fill="#7a7a7d" font-size="9"
+              letter-spacing="2" font-weight="500">POWER</text>
+        <g transform="translate(8, 16)">
+          <!-- Outer halo -->
+          <circle cx="0" cy="0" r="14" fill="#ff8a1f" opacity="0.18" filter="url(#amber-glow-strong)"/>
+          <!-- LED bezel -->
+          <circle cx="0" cy="0" r="8" fill="#0a0a0b" stroke="#2a2a2c"/>
+          <!-- LED -->
+          <circle cx="0" cy="0" r="6" fill="url(#led-amber)" filter="url(#amber-glow)"/>
+          <!-- specular -->
+          <ellipse cx="-1.5" cy="-2" rx="1.6" ry="1" fill="#fff" opacity="0.6"/>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- separator under header -->
+  <line x1="20" y1="140" x2="1180" y2="140" stroke="#000" stroke-opacity="0.7"/>
+  <line x1="20" y1="141" x2="1180" y2="141" stroke="#3a3a3d" stroke-opacity="0.35"/>
+
+  <!-- ============================================================ -->
+  <!-- 3. KNOBS SECTION                                              -->
+  <!-- ============================================================ -->
+  <g id="knobs">
+
+    <!-- subtle inner panel highlight -->
+    <rect x="20" y="150" width="1160" height="280" rx="6" fill="none"
+          stroke="#ffffff" stroke-opacity="0.02"/>
+
+    <!-- Reusable knob: each rendered inline because each rotation differs -->
+    <!--
+      Layout (knob centers):
+        x: 150, 375, 600, 825, 1050     y: 265
+    -->
+
+    <!-- ============ KNOB 1: INPUT dB ============ -->
+    <g transform="translate(150, 265)">
+      <!-- Top label -->
+      <text x="0" y="-95" text-anchor="middle" fill="#bcbcbe"
+            font-size="11" letter-spacing="3" font-weight="600">INPUT  dB</text>
+      <!-- Range markers -->
+      <text x="-72" y="-58" text-anchor="middle" fill="#555558" font-size="8" letter-spacing="0.5">-24</text>
+      <text x="72"  y="-58" text-anchor="middle" fill="#555558" font-size="8" letter-spacing="0.5">+24</text>
+
+      <!-- Halo shadow under knob -->
+      <ellipse cx="0" cy="10" rx="62" ry="14" fill="#000" opacity="0.55" filter="url(#blur-soft)"/>
+
+      <!-- Outer bezel -->
+      <circle r="64" fill="url(#knob-bezel)"/>
+      <!-- Top reflective sheen -->
+      <ellipse cx="0" cy="-58" rx="50" ry="6" fill="#ffffff" opacity="0.06"/>
+      <!-- Inner dark step -->
+      <circle r="56" fill="#0c0c0d"/>
+      <!-- Knob face -->
+      <circle r="53" fill="url(#knob-face)"/>
+      <circle r="53" fill="url(#brushed-lines)" opacity="0.7"/>
+      <!-- Outer rim crisp line -->
+      <circle r="53" fill="none" stroke="#000" stroke-width="1" opacity="0.8"/>
+      <!-- Indicator -->
+      <g transform="rotate(28)">
+        <line x1="0" y1="-49" x2="0" y2="-30" stroke="#ffb340"
+              stroke-width="3.4" stroke-linecap="round" filter="url(#amber-glow-strong)"/>
+        <circle cx="0" cy="-46" r="2.6" fill="#fff7d8" filter="url(#amber-glow)"/>
+      </g>
+      <!-- Center cap -->
+      <circle r="16" fill="url(#knob-bezel)"/>
+      <circle r="13" fill="url(#knob-cap)"/>
+      <ellipse cx="-3.5" cy="-4" rx="3.5" ry="2" fill="#ffffff" opacity="0.18"/>
+
+      <!-- Value -->
+      <text x="0" y="84" text-anchor="middle" fill="#ffb04a"
+            font-size="12" font-weight="600" letter-spacing="1" filter="url(#amber-glow)">+5.0 dB</text>
+
+      <!-- Button: IN (LED ON) -->
+      <g transform="translate(0, 110)">
+        <rect x="-50" y="-14" width="100" height="28" rx="4"
+              fill="url(#btn-face-hi)" stroke="#000" stroke-width="1"/>
+        <rect x="-49" y="-13" width="98" height="1" fill="#5a5a5d" opacity="0.5"/>
+        <!-- LED strip -->
+        <rect x="-44" y="-9" width="88" height="3" rx="1.5"
+              fill="url(#led-strip-on)" filter="url(#amber-glow-strong)"/>
+        <text x="0" y="9" text-anchor="middle" fill="#dadada"
+              font-size="11" letter-spacing="2" font-weight="600">IN</text>
+      </g>
+    </g>
+
+    <!-- ============ KNOB 2: SATURATION % ============ -->
+    <g transform="translate(375, 265)">
+      <text x="0" y="-95" text-anchor="middle" fill="#bcbcbe"
+            font-size="11" letter-spacing="3" font-weight="600">SATURATION  %</text>
+      <text x="-72" y="-58" text-anchor="middle" fill="#555558" font-size="8">0</text>
+      <text x="72"  y="-58" text-anchor="middle" fill="#555558" font-size="8">100</text>
+
+      <ellipse cx="0" cy="10" rx="62" ry="14" fill="#000" opacity="0.55" filter="url(#blur-soft)"/>
+      <circle r="64" fill="url(#knob-bezel)"/>
+      <ellipse cx="0" cy="-58" rx="50" ry="6" fill="#ffffff" opacity="0.06"/>
+      <circle r="56" fill="#0c0c0d"/>
+      <circle r="53" fill="url(#knob-face)"/>
+      <circle r="53" fill="url(#brushed-lines)" opacity="0.7"/>
+      <circle r="53" fill="none" stroke="#000" stroke-width="1" opacity="0.8"/>
+      <g transform="rotate(40)">
+        <line x1="0" y1="-49" x2="0" y2="-30" stroke="#ffb340"
+              stroke-width="3.4" stroke-linecap="round" filter="url(#amber-glow-strong)"/>
+        <circle cx="0" cy="-46" r="2.6" fill="#fff7d8" filter="url(#amber-glow)"/>
+      </g>
+      <circle r="16" fill="url(#knob-bezel)"/>
+      <circle r="13" fill="url(#knob-cap)"/>
+      <ellipse cx="-3.5" cy="-4" rx="3.5" ry="2" fill="#ffffff" opacity="0.18"/>
+
+      <text x="0" y="84" text-anchor="middle" fill="#ffb04a"
+            font-size="12" font-weight="600" letter-spacing="1" filter="url(#amber-glow)">65 %</text>
+
+      <!-- Button: TAPE DRIVE (LED OFF) -->
+      <g transform="translate(0, 110)">
+        <rect x="-50" y="-14" width="100" height="28" rx="4"
+              fill="url(#btn-face)" stroke="#000" stroke-width="1"/>
+        <rect x="-49" y="-13" width="98" height="1" fill="#404043" opacity="0.5"/>
+        <rect x="-44" y="-9" width="88" height="3" rx="1.5" fill="url(#led-strip-off)"/>
+        <text x="0" y="9" text-anchor="middle" fill="#7a7a7d"
+              font-size="10" letter-spacing="2" font-weight="600">TAPE DRIVE</text>
+      </g>
+    </g>
+
+    <!-- ============ KNOB 3: BIAS ============ -->
+    <g transform="translate(600, 265)">
+      <text x="0" y="-95" text-anchor="middle" fill="#bcbcbe"
+            font-size="11" letter-spacing="3" font-weight="600">BIAS</text>
+      <text x="-72" y="-58" text-anchor="middle" fill="#555558" font-size="8">-1.0</text>
+      <text x="72"  y="-58" text-anchor="middle" fill="#555558" font-size="8">+1.0</text>
+
+      <ellipse cx="0" cy="10" rx="62" ry="14" fill="#000" opacity="0.55" filter="url(#blur-soft)"/>
+      <circle r="64" fill="url(#knob-bezel)"/>
+      <ellipse cx="0" cy="-58" rx="50" ry="6" fill="#ffffff" opacity="0.06"/>
+      <circle r="56" fill="#0c0c0d"/>
+      <circle r="53" fill="url(#knob-face)"/>
+      <circle r="53" fill="url(#brushed-lines)" opacity="0.7"/>
+      <circle r="53" fill="none" stroke="#000" stroke-width="1" opacity="0.8"/>
+      <g transform="rotate(27)">
+        <line x1="0" y1="-49" x2="0" y2="-30" stroke="#ffb340"
+              stroke-width="3.4" stroke-linecap="round" filter="url(#amber-glow-strong)"/>
+        <circle cx="0" cy="-46" r="2.6" fill="#fff7d8" filter="url(#amber-glow)"/>
+      </g>
+      <circle r="16" fill="url(#knob-bezel)"/>
+      <circle r="13" fill="url(#knob-cap)"/>
+      <ellipse cx="-3.5" cy="-4" rx="3.5" ry="2" fill="#ffffff" opacity="0.18"/>
+
+      <text x="0" y="84" text-anchor="middle" fill="#ffb04a"
+            font-size="12" font-weight="600" letter-spacing="1" filter="url(#amber-glow)">+0.20</text>
+
+      <!-- Button: NORMAL (LED ON) -->
+      <g transform="translate(0, 110)">
+        <rect x="-50" y="-14" width="100" height="28" rx="4"
+              fill="url(#btn-face-hi)" stroke="#000" stroke-width="1"/>
+        <rect x="-49" y="-13" width="98" height="1" fill="#5a5a5d" opacity="0.5"/>
+        <rect x="-44" y="-9" width="88" height="3" rx="1.5"
+              fill="url(#led-strip-on)" filter="url(#amber-glow-strong)"/>
+        <text x="0" y="9" text-anchor="middle" fill="#dadada"
+              font-size="10" letter-spacing="2" font-weight="600">NORMAL</text>
+      </g>
+    </g>
+
+    <!-- ============ KNOB 4: TONE ============ -->
+    <g transform="translate(825, 265)">
+      <text x="0" y="-95" text-anchor="middle" fill="#bcbcbe"
+            font-size="11" letter-spacing="3" font-weight="600">TONE</text>
+      <text x="-72" y="-58" text-anchor="middle" fill="#555558" font-size="8">-100</text>
+      <text x="72"  y="-58" text-anchor="middle" fill="#555558" font-size="8">+100</text>
+
+      <ellipse cx="0" cy="10" rx="62" ry="14" fill="#000" opacity="0.55" filter="url(#blur-soft)"/>
+      <circle r="64" fill="url(#knob-bezel)"/>
+      <ellipse cx="0" cy="-58" rx="50" ry="6" fill="#ffffff" opacity="0.06"/>
+      <circle r="56" fill="#0c0c0d"/>
+      <circle r="53" fill="url(#knob-face)"/>
+      <circle r="53" fill="url(#brushed-lines)" opacity="0.7"/>
+      <circle r="53" fill="none" stroke="#000" stroke-width="1" opacity="0.8"/>
+      <g transform="rotate(47)">
+        <line x1="0" y1="-49" x2="0" y2="-30" stroke="#ffb340"
+              stroke-width="3.4" stroke-linecap="round" filter="url(#amber-glow-strong)"/>
+        <circle cx="0" cy="-46" r="2.6" fill="#fff7d8" filter="url(#amber-glow)"/>
+      </g>
+      <circle r="16" fill="url(#knob-bezel)"/>
+      <circle r="13" fill="url(#knob-cap)"/>
+      <ellipse cx="-3.5" cy="-4" rx="3.5" ry="2" fill="#ffffff" opacity="0.18"/>
+
+      <text x="0" y="84" text-anchor="middle" fill="#ffb04a"
+            font-size="12" font-weight="600" letter-spacing="1" filter="url(#amber-glow)">+35</text>
+
+      <!-- Button: HF ADJUST (LED OFF) -->
+      <g transform="translate(0, 110)">
+        <rect x="-50" y="-14" width="100" height="28" rx="4"
+              fill="url(#btn-face)" stroke="#000" stroke-width="1"/>
+        <rect x="-49" y="-13" width="98" height="1" fill="#404043" opacity="0.5"/>
+        <rect x="-44" y="-9" width="88" height="3" rx="1.5" fill="url(#led-strip-off)"/>
+        <text x="0" y="9" text-anchor="middle" fill="#7a7a7d"
+              font-size="10" letter-spacing="2" font-weight="600">HF ADJUST</text>
+      </g>
+    </g>
+
+    <!-- ============ KNOB 5: OUTPUT dB ============ -->
+    <g transform="translate(1050, 265)">
+      <text x="0" y="-95" text-anchor="middle" fill="#bcbcbe"
+            font-size="11" letter-spacing="3" font-weight="600">OUTPUT  dB</text>
+      <text x="-72" y="-58" text-anchor="middle" fill="#555558" font-size="8">-24</text>
+      <text x="72"  y="-58" text-anchor="middle" fill="#555558" font-size="8">+24</text>
+
+      <ellipse cx="0" cy="10" rx="62" ry="14" fill="#000" opacity="0.55" filter="url(#blur-soft)"/>
+      <circle r="64" fill="url(#knob-bezel)"/>
+      <ellipse cx="0" cy="-58" rx="50" ry="6" fill="#ffffff" opacity="0.06"/>
+      <circle r="56" fill="#0c0c0d"/>
+      <circle r="53" fill="url(#knob-face)"/>
+      <circle r="53" fill="url(#brushed-lines)" opacity="0.7"/>
+      <circle r="53" fill="none" stroke="#000" stroke-width="1" opacity="0.8"/>
+      <g transform="rotate(11)">
+        <line x1="0" y1="-49" x2="0" y2="-30" stroke="#ffb340"
+              stroke-width="3.4" stroke-linecap="round" filter="url(#amber-glow-strong)"/>
+        <circle cx="0" cy="-46" r="2.6" fill="#fff7d8" filter="url(#amber-glow)"/>
+      </g>
+      <circle r="16" fill="url(#knob-bezel)"/>
+      <circle r="13" fill="url(#knob-cap)"/>
+      <ellipse cx="-3.5" cy="-4" rx="3.5" ry="2" fill="#ffffff" opacity="0.18"/>
+
+      <text x="0" y="84" text-anchor="middle" fill="#ffb04a"
+            font-size="12" font-weight="600" letter-spacing="1" filter="url(#amber-glow)">+2.0 dB</text>
+
+      <!-- Button: OUT (LED ON) -->
+      <g transform="translate(0, 110)">
+        <rect x="-50" y="-14" width="100" height="28" rx="4"
+              fill="url(#btn-face-hi)" stroke="#000" stroke-width="1"/>
+        <rect x="-49" y="-13" width="98" height="1" fill="#5a5a5d" opacity="0.5"/>
+        <rect x="-44" y="-9" width="88" height="3" rx="1.5"
+              fill="url(#led-strip-on)" filter="url(#amber-glow-strong)"/>
+        <text x="0" y="9" text-anchor="middle" fill="#dadada"
+              font-size="11" letter-spacing="2" font-weight="600">OUT</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- separator -->
+  <line x1="20" y1="442" x2="1180" y2="442" stroke="#000" stroke-opacity="0.7"/>
+  <line x1="20" y1="443" x2="1180" y2="443" stroke="#3a3a3d" stroke-opacity="0.35"/>
+
+  <!-- ============================================================ -->
+  <!-- 4. BOTTOM SECTION: TAPE CHARACTER | VU METERS | OVERSAMPLING -->
+  <!-- ============================================================ -->
+  <g id="bottom">
+
+    <!-- ===== Left panel: TAPE CHARACTER ===== -->
+    <g transform="translate(40, 460)">
+      <!-- Recessed panel -->
+      <rect x="0" y="0" width="240" height="200" rx="6"
+            fill="url(#panel-recessed)" stroke="#000" stroke-width="1"/>
+      <rect x="1" y="1" width="238" height="1" fill="#3a3a3d" opacity="0.4"/>
+      <rect x="0" y="0" width="240" height="200" rx="6" fill="url(#brushed-lines)" opacity="0.4"/>
+
+      <!-- Header -->
+      <text x="120" y="28" text-anchor="middle" fill="#bcbcbe"
+            font-size="11" letter-spacing="3" font-weight="600">TAPE CHARACTER</text>
+      <line x1="40" y1="40" x2="200" y2="40" stroke="#000" opacity="0.7"/>
+      <line x1="40" y1="41" x2="200" y2="41" stroke="#3a3a3d" opacity="0.4"/>
+
+      <!-- Radio: CLASSIC (active) -->
+      <g transform="translate(36, 70)">
+        <!-- Halo -->
+        <circle cx="9" cy="9" r="14" fill="#ff8a1f" opacity="0.18" filter="url(#amber-glow-strong)"/>
+        <circle cx="9" cy="9" r="9" fill="#0a0a0b" stroke="#2a2a2c"/>
+        <circle cx="9" cy="9" r="6" fill="url(#led-amber)" filter="url(#amber-glow)"/>
+        <ellipse cx="7.5" cy="7" rx="1.5" ry="1" fill="#fff" opacity="0.6"/>
+        <text x="32" y="13" fill="#ffb04a" font-size="12"
+              letter-spacing="2" font-weight="600" filter="url(#amber-glow)">CLASSIC</text>
+      </g>
+
+      <!-- Radio: VINTAGE (inactive) -->
+      <g transform="translate(36, 110)">
+        <circle cx="9" cy="9" r="9" fill="#0a0a0b" stroke="#2a2a2c"/>
+        <circle cx="9" cy="9" r="6" fill="url(#led-amber-off)"/>
+        <text x="32" y="13" fill="#7a7a7d" font-size="12"
+              letter-spacing="2" font-weight="500">VINTAGE</text>
+      </g>
+
+      <!-- Radio: MODERN (inactive) -->
+      <g transform="translate(36, 150)">
+        <circle cx="9" cy="9" r="9" fill="#0a0a0b" stroke="#2a2a2c"/>
+        <circle cx="9" cy="9" r="6" fill="url(#led-amber-off)"/>
+        <text x="32" y="13" fill="#7a7a7d" font-size="12"
+              letter-spacing="2" font-weight="500">MODERN</text>
+      </g>
+    </g>
+
+    <!-- ===== Center: VU Meters ===== -->
+    <g transform="translate(300, 460)">
+      <!-- Outer recessed bezel for both meters -->
+      <rect x="0" y="0" width="600" height="200" rx="6"
+            fill="url(#panel-recessed)" stroke="#000"/>
+      <rect x="1" y="1" width="598" height="1" fill="#3a3a3d" opacity="0.4"/>
+
+      <!-- Header -->
+      <text x="300" y="22" text-anchor="middle" fill="#7a7a7d"
+            font-size="9" letter-spacing="3" font-weight="500">OUTPUT  LEVEL</text>
+
+      <!-- VU METER (reusable: rendered twice with diff needle angles) -->
+
+      <!-- LEFT VU -->
+      <g transform="translate(40, 36)">
+        <!-- Bezel frame -->
+        <rect x="0" y="0" width="240" height="148" rx="4"
+              fill="url(#vu-bezel)" stroke="#000"/>
+        <rect x="2" y="2" width="236" height="144" rx="3"
+              fill="#0a0a0b"/>
+        <!-- Meter face (parchment) -->
+        <rect x="6" y="6" width="228" height="136" rx="2"
+              fill="url(#vu-face)"/>
+        <!-- Inner shadow border -->
+        <rect x="6" y="6" width="228" height="6" fill="url(#vu-bezel)" opacity="0.5"/>
+
+        <!-- Scale arc + ticks -->
+        <!-- pivot at (120, 168) — needle anchor below the visible window -->
+        <g transform="translate(120, 168)">
+          <!-- Arc baseline -->
+          <path d="M -100,-25 A 110 110 0 0 1 100,-25"
+                fill="none" stroke="#1a1a1a" stroke-width="1.2"/>
+          <!-- Red zone (0 → +3 VU) -->
+          <path d="M 60,-92 A 110 110 0 0 1 100,-25"
+                fill="none" stroke="#c8231a" stroke-width="3" opacity="0.85"/>
+
+          <!-- Ticks (-20, -10, -7, -5, -3, -1, 0, +1, +2, +3) -->
+          <!-- helper: rotate from -45 (=-20VU) to +45 (=+3VU) -->
+          <g stroke="#1a1a1a" stroke-width="1.4">
+            <!-- -20 -->
+            <line transform="rotate(-45)" x1="0" y1="-100" x2="0" y2="-115"/>
+            <!-- -10 -->
+            <line transform="rotate(-5.87)" x1="0" y1="-100" x2="0" y2="-115"/>
+            <!-- -7 -->
+            <line transform="rotate(5.87)" x1="0" y1="-100" x2="0" y2="-112"/>
+            <!-- -5 -->
+            <line transform="rotate(13.7)" x1="0" y1="-100" x2="0" y2="-114"/>
+            <!-- -3 -->
+            <line transform="rotate(21.5)" x1="0" y1="-100" x2="0" y2="-112"/>
+            <!-- -1 -->
+            <line transform="rotate(29.3)" x1="0" y1="-100" x2="0" y2="-112"/>
+          </g>
+          <g stroke="#c8231a" stroke-width="1.6">
+            <line transform="rotate(33.3)" x1="0" y1="-100" x2="0" y2="-115"/> <!-- 0 -->
+            <line transform="rotate(37.2)" x1="0" y1="-100" x2="0" y2="-112"/> <!-- +1 -->
+            <line transform="rotate(41.1)" x1="0" y1="-100" x2="0" y2="-112"/> <!-- +2 -->
+            <line transform="rotate(45)"   x1="0" y1="-100" x2="0" y2="-115"/> <!-- +3 -->
+          </g>
+
+          <!-- Tick numbers -->
+          <g fill="#1a1a1a" font-size="8.5" font-weight="600" text-anchor="middle">
+            <text transform="rotate(-45) translate(0,-122) rotate(45)">20</text>
+            <text transform="rotate(-5.87) translate(0,-122) rotate(5.87)">10</text>
+            <text transform="rotate(13.7) translate(0,-122) rotate(-13.7)">5</text>
+          </g>
+          <g fill="#c8231a" font-size="9" font-weight="700" text-anchor="middle">
+            <text transform="rotate(33.3) translate(0,-122) rotate(-33.3)">0</text>
+            <text transform="rotate(45) translate(0,-122) rotate(-45)">+3</text>
+          </g>
+
+          <!-- VU label -->
+          <text x="0" y="-50" text-anchor="middle"
+                fill="#1a1a1a" font-size="13" font-weight="700"
+                font-style="italic" letter-spacing="2">VU</text>
+
+          <!-- Needle (pointing to -5 VU ≈ +13.7°) -->
+          <g transform="rotate(13.7)" filter="url(#shadow-soft)">
+            <line x1="0" y1="0" x2="0" y2="-108"
+                  stroke="#000" stroke-width="1.4" stroke-linecap="round"/>
+            <!-- counterweight -->
+            <line x1="0" y1="0" x2="0" y2="14" stroke="#000" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="0" cy="-108" r="1.2" fill="#000"/>
+          </g>
+          <!-- Pivot screw -->
+          <circle cx="0" cy="0" r="5" fill="url(#knob-bezel)"/>
+          <circle cx="0" cy="0" r="3" fill="#0a0a0b"/>
+          <circle cx="-1" cy="-1" r="1" fill="#5a5a5d"/>
+        </g>
+
+        <!-- Glass overlay -->
+        <rect x="6" y="6" width="228" height="136" rx="2" fill="url(#vu-glass)"/>
+
+        <!-- Channel label -->
+        <text x="120" y="160" text-anchor="middle" fill="#bcbcbe"
+              font-size="10" letter-spacing="4" font-weight="600">LEFT</text>
+      </g>
+
+      <!-- RIGHT VU -->
+      <g transform="translate(320, 36)">
+        <rect x="0" y="0" width="240" height="148" rx="4"
+              fill="url(#vu-bezel)" stroke="#000"/>
+        <rect x="2" y="2" width="236" height="144" rx="3" fill="#0a0a0b"/>
+        <rect x="6" y="6" width="228" height="136" rx="2" fill="url(#vu-face)"/>
+        <rect x="6" y="6" width="228" height="6" fill="url(#vu-bezel)" opacity="0.5"/>
+
+        <g transform="translate(120, 168)">
+          <path d="M -100,-25 A 110 110 0 0 1 100,-25" fill="none" stroke="#1a1a1a" stroke-width="1.2"/>
+          <path d="M 60,-92 A 110 110 0 0 1 100,-25" fill="none" stroke="#c8231a" stroke-width="3" opacity="0.85"/>
+
+          <g stroke="#1a1a1a" stroke-width="1.4">
+            <line transform="rotate(-45)" x1="0" y1="-100" x2="0" y2="-115"/>
+            <line transform="rotate(-5.87)" x1="0" y1="-100" x2="0" y2="-115"/>
+            <line transform="rotate(5.87)" x1="0" y1="-100" x2="0" y2="-112"/>
+            <line transform="rotate(13.7)" x1="0" y1="-100" x2="0" y2="-114"/>
+            <line transform="rotate(21.5)" x1="0" y1="-100" x2="0" y2="-112"/>
+            <line transform="rotate(29.3)" x1="0" y1="-100" x2="0" y2="-112"/>
+          </g>
+          <g stroke="#c8231a" stroke-width="1.6">
+            <line transform="rotate(33.3)" x1="0" y1="-100" x2="0" y2="-115"/>
+            <line transform="rotate(37.2)" x1="0" y1="-100" x2="0" y2="-112"/>
+            <line transform="rotate(41.1)" x1="0" y1="-100" x2="0" y2="-112"/>
+            <line transform="rotate(45)"   x1="0" y1="-100" x2="0" y2="-115"/>
+          </g>
+
+          <g fill="#1a1a1a" font-size="8.5" font-weight="600" text-anchor="middle">
+            <text transform="rotate(-45) translate(0,-122) rotate(45)">20</text>
+            <text transform="rotate(-5.87) translate(0,-122) rotate(5.87)">10</text>
+            <text transform="rotate(13.7) translate(0,-122) rotate(-13.7)">5</text>
+          </g>
+          <g fill="#c8231a" font-size="9" font-weight="700" text-anchor="middle">
+            <text transform="rotate(33.3) translate(0,-122) rotate(-33.3)">0</text>
+            <text transform="rotate(45) translate(0,-122) rotate(-45)">+3</text>
+          </g>
+
+          <text x="0" y="-50" text-anchor="middle"
+                fill="#1a1a1a" font-size="13" font-weight="700"
+                font-style="italic" letter-spacing="2">VU</text>
+
+          <!-- Needle (slightly different position for realism) -->
+          <g transform="rotate(16)" filter="url(#shadow-soft)">
+            <line x1="0" y1="0" x2="0" y2="-108"
+                  stroke="#000" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="0" y1="0" x2="0" y2="14" stroke="#000" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="0" cy="-108" r="1.2" fill="#000"/>
+          </g>
+          <circle cx="0" cy="0" r="5" fill="url(#knob-bezel)"/>
+          <circle cx="0" cy="0" r="3" fill="#0a0a0b"/>
+          <circle cx="-1" cy="-1" r="1" fill="#5a5a5d"/>
+        </g>
+
+        <rect x="6" y="6" width="228" height="136" rx="2" fill="url(#vu-glass)"/>
+        <text x="120" y="160" text-anchor="middle" fill="#bcbcbe"
+              font-size="10" letter-spacing="4" font-weight="600">RIGHT</text>
+      </g>
+    </g>
+
+    <!-- ===== Right panel: OVERSAMPLING ===== -->
+    <g transform="translate(920, 460)">
+      <rect x="0" y="0" width="240" height="200" rx="6"
+            fill="url(#panel-recessed)" stroke="#000"/>
+      <rect x="1" y="1" width="238" height="1" fill="#3a3a3d" opacity="0.4"/>
+      <rect x="0" y="0" width="240" height="200" rx="6" fill="url(#brushed-lines)" opacity="0.4"/>
+
+      <text x="120" y="28" text-anchor="middle" fill="#bcbcbe"
+            font-size="11" letter-spacing="3" font-weight="600">OVERSAMPLING</text>
+      <line x1="40" y1="40" x2="200" y2="40" stroke="#000" opacity="0.7"/>
+      <line x1="40" y1="41" x2="200" y2="41" stroke="#3a3a3d" opacity="0.4"/>
+
+      <!-- OFF -->
+      <g transform="translate(36, 70)">
+        <circle cx="9" cy="9" r="9" fill="#0a0a0b" stroke="#2a2a2c"/>
+        <circle cx="9" cy="9" r="6" fill="url(#led-amber-off)"/>
+        <text x="32" y="13" fill="#7a7a7d" font-size="12"
+              letter-spacing="2" font-weight="500">OFF</text>
+      </g>
+
+      <!-- 2X (active) -->
+      <g transform="translate(36, 110)">
+        <circle cx="9" cy="9" r="14" fill="#ff8a1f" opacity="0.18" filter="url(#amber-glow-strong)"/>
+        <circle cx="9" cy="9" r="9" fill="#0a0a0b" stroke="#2a2a2c"/>
+        <circle cx="9" cy="9" r="6" fill="url(#led-amber)" filter="url(#amber-glow)"/>
+        <ellipse cx="7.5" cy="7" rx="1.5" ry="1" fill="#fff" opacity="0.6"/>
+        <text x="32" y="13" fill="#ffb04a" font-size="12"
+              letter-spacing="2" font-weight="600" filter="url(#amber-glow)">2X</text>
+      </g>
+
+      <!-- 4X -->
+      <g transform="translate(36, 150)">
+        <circle cx="9" cy="9" r="9" fill="#0a0a0b" stroke="#2a2a2c"/>
+        <circle cx="9" cy="9" r="6" fill="url(#led-amber-off)"/>
+        <text x="32" y="13" fill="#7a7a7d" font-size="12"
+              letter-spacing="2" font-weight="500">4X</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- 5. FOOTER                                                     -->
+  <!-- ============================================================ -->
+  <line x1="0" y1="680" x2="1200" y2="680" stroke="#000" stroke-opacity="0.85"/>
+  <line x1="0" y1="681" x2="1200" y2="681" stroke="#3a3a3d" stroke-opacity="0.35"/>
+  <rect x="0" y="681" width="1200" height="59" fill="url(#footer-bg)"/>
+
+  <g id="footer" font-size="9" letter-spacing="2.5">
+    <!-- Left -->
+    <text x="22" y="715" fill="#5a5a5d" font-weight="500">
+      DESIGNED BY  AUDIO INTELLIGENCE
+    </text>
+
+    <!-- Center -->
+    <g transform="translate(600, 706)" text-anchor="middle">
+      <text fill="#9a9a9d" font-size="10" letter-spacing="4" font-weight="600">
+        ANALOG TAPE EMULATION
+      </text>
+      <text y="14" fill="#ff9a33" font-size="8" letter-spacing="3"
+            font-weight="500" filter="url(#amber-glow)">
+        — HAND  CRAFTED  SOUND —
+      </text>
+    </g>
+
+    <!-- Right -->
+    <text x="1178" y="715" text-anchor="end" fill="#5a5a5d"
+          font-weight="500">v1.0.0</text>
+  </g>
+
+</svg>
+
+  </div>
+</body>
+</html>
